@@ -74,7 +74,7 @@ const Applicants = () => {
                 <p>{app.applicant?.email}</p>
                 {app.applicant?.resume && (
                   <a
-                    href={`http://localhost:5001/uploads/resumes/${app.applicant.resume}`}
+                    href={`http://localhost:5002/uploads/resumes/${app.applicant.resume}`}
                     target="_blank"
                     rel="noreferrer"
                     className={styles.resumeLink}
