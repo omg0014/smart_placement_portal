@@ -77,7 +77,7 @@ const Applicants = () => {
                 <p>{app.applicant?.email}</p>
                 {app.applicant?.resume && (
                   <a
-                    href={`${API_BASE_URL}/uploads/resumes/${app.applicant.resume}`}
+                    href={app.applicant.resume.startsWith('http') ? app.applicant.resume : `${API_BASE_URL}/uploads/resumes/${app.applicant.resume}`}
                     target="_blank"
                     rel="noreferrer"
                     className={styles.resumeLink}

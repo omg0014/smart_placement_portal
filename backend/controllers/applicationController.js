@@ -115,12 +115,12 @@ const uploadResume = async (req, res) => {
       return res.status(400).json({ message: 'No file uploaded' });
     }
 
-    // save the file path to the user's profile
+    // save the file Cloudinary path to the user's profile
     const user = await User.findById(req.user._id);
-    user.resume = req.file.filename;
+    user.resume = req.file.path; // Cloudinary returns the full URL directly in path
     await user.save();
 
-    res.json({ message: 'Resume uploaded successfully', resume: req.file.filename });
+    res.json({ message: 'Resume uploaded successfully', resume: req.file.path });
   } catch (error) {
     console.error('Upload resume error:', error.message);
     res.status(500).json({ message: 'Could not upload resume' });
