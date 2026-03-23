@@ -11,6 +11,9 @@ const Applicants = () => {
   const [jobTitle, setJobTitle] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // dynamically determine the base URL for the backend
+  const API_BASE_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5002';
+
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
@@ -74,7 +77,7 @@ const Applicants = () => {
                 <p>{app.applicant?.email}</p>
                 {app.applicant?.resume && (
                   <a
-                    href={`http://localhost:5002/uploads/resumes/${app.applicant.resume}`}
+                    href={`${API_BASE_URL}/uploads/resumes/${app.applicant.resume}`}
                     target="_blank"
                     rel="noreferrer"
                     className={styles.resumeLink}
