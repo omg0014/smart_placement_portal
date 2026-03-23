@@ -1,0 +1,100 @@
+/* Job Details Page */
+.detailsPage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--s-6) var(--s-10);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: var(--s-6) 0 var(--s-6);
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  transition: all var(--ease);
+}
+.backLink:hover {
+  color: var(--primary);
+  background: var(--primary-light);
+  text-decoration: none;
+}
+
+.detailCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--s-10);
+  box-shadow: var(--shadow-sm);
+}
+
+.detailHeader {
+  margin-bottom: var(--s-8);
+  padding-bottom: var(--s-6);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.detailHeader h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+}
+
+.company {
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.metaRow {
+  display: flex;
+  gap: var(--s-6);
+  margin-top: var(--s-4);
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: var(--s-8) 0 var(--s-3);
+  color: var(--heading);
+}
+
+.description {
+  color: var(--text);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  gap: var(--s-3);
+  margin-top: var(--s-8);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+}
+
+.postedBy {
+  margin-top: var(--s-6);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 768px) {
+  .detailCard { padding: var(--s-6); border-radius: var(--radius-lg); }
+  .detailHeader h1 { font-size: 1.25rem; }
+  .metaRow { gap: var(--s-4); }
+}

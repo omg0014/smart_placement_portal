@@ -1,0 +1,34 @@
+/* Post / Edit Job Page */
+.postJobPage {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--s-6) var(--s-10);
+}
+
+.formCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--s-10);
+  box-shadow: var(--shadow-sm);
+}
+
+.formCard h2 {
+  margin-bottom: var(--s-8);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+}
+
+.formActions {
+  display: flex;
+  gap: var(--s-3);
+  margin-top: var(--s-8);
+}
+
+@media (max-width: 480px) {
+  .formCard { padding: var(--s-6); }
+  .formActions { flex-direction: column; }
+  .formActions .btn { width: 100%; }
+}

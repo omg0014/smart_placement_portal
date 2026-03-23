@@ -1,0 +1,118 @@
+/* Applications Page */
+.applicationsPage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--s-6) var(--s-10);
+}
+
+.appList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+/* Seeker application card */
+.appCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--s-5) var(--s-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  transition: all var(--ease);
+}
+.appCard:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #cbd5e1;
+}
+
+.appInfo h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 3px;
+}
+.appInfo p {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.appMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.dateText {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Recruiter applicant cards */
+.applicantCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s-4) var(--s-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  transition: all var(--ease);
+}
+.applicantCard:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.applicantInfo {
+  flex: 1;
+  min-width: 200px;
+}
+.applicantInfo h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 2px;
+}
+.applicantInfo p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.statusSelect {
+  padding: 7px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 0.8rem;
+  color: var(--text);
+  background: var(--bg-input);
+  cursor: pointer;
+  transition: all var(--ease);
+}
+.statusSelect:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.resumeLink {
+  font-size: 0.8rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.resumeLink:hover { color: var(--primary-hover); }
+
+@media (max-width: 768px) {
+  .applicationsPage { padding: var(--s-4); }
+  .appCard, .applicantCard { padding: var(--s-4); }
+  .appMeta { width: 100%; justify-content: space-between; }
+}
