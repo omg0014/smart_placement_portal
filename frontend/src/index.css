@@ -1,0 +1,389 @@
+/* ============================================
+   Smart Job Portal — Design System
+   Professional SaaS-style UI
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Primary blues */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #eff6ff;
+  --primary-50: #dbeafe;
+
+  /* Deep accent for headings / emphasis */
+  --heading: #1e293b;
+  --text: #334155;
+  --text-light: #64748b;
+  --text-muted: #94a3b8;
+
+  /* Layered backgrounds — NOT plain white */
+  --bg-body: #f1f5f9;          /* main page background */
+  --bg-section: #f8fafc;       /* slightly lighter sections */
+  --bg-card: #ffffff;           /* card surfaces */
+  --bg-input: #f8fafc;          /* input backgrounds */
+  --bg-sidebar: #f1f5f9;       /* sidebar / aside */
+  --bg-nav: #ffffff;            /* navbar */
+
+  /* Borders */
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  /* Accents */
+  --green: #10b981;
+  --green-light: #ecfdf5;
+  --green-dark: #065f46;
+  --red: #ef4444;
+  --red-light: #fef2f2;
+  --red-dark: #991b1b;
+  --amber: #f59e0b;
+  --amber-light: #fffbeb;
+  --indigo: #6366f1;
+  --indigo-light: #eef2ff;
+
+  /* Typography */
+  --font: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* Borders & Shadows */
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
+  --shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.15);
+
+  --ease: 0.2s ease;
+  --ease-slow: 0.3s ease;
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg-body);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+a:hover {
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+ul { list-style: none; }
+img { max-width: 100%; }
+
+/* --- Container --- */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 var(--s-6);
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--ease);
+  line-height: 1.5;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-section);
+  border-color: #cbd5e1;
+}
+
+.btn-danger {
+  background: var(--red);
+  color: #fff;
+}
+.btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+.btn-success {
+  background: var(--green);
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+.btn-outline:hover:not(:disabled) {
+  background: var(--primary-light);
+}
+
+.btn-small {
+  padding: 7px 16px;
+  font-size: 0.8rem;
+}
+
+.btn-large {
+  padding: 13px 32px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+.form-group {
+  margin-bottom: var(--s-5);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 0.875rem;
+  color: var(--text);
+  background-color: var(--bg-input);
+  transition: all var(--ease);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-focus);
+  background-color: var(--bg-card);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* ========================================
+   MESSAGES
+   ======================================== */
+.error-message {
+  background: var(--red-light);
+  color: var(--red-dark);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: var(--s-4);
+  font-size: 0.85rem;
+  border-left: 3px solid var(--red);
+  font-weight: 500;
+}
+
+.success-message {
+  background: var(--green-light);
+  color: var(--green-dark);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: var(--s-4);
+  font-size: 0.85rem;
+  border-left: 3px solid var(--green);
+  font-weight: 500;
+}
+
+/* ========================================
+   BADGES
+   ======================================== */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+}
+
+.badge-pending   { background: var(--amber-light); color: #92400e; }
+.badge-reviewed  { background: var(--primary-light); color: var(--primary-dark); }
+.badge-shortlisted { background: var(--indigo-light); color: #4338ca; }
+.badge-accepted  { background: var(--green-light); color: var(--green-dark); }
+.badge-rejected  { background: var(--red-light); color: var(--red-dark); }
+
+/* ========================================
+   PAGE HEADER
+   ======================================== */
+.page-header {
+  margin: var(--s-10) 0 var(--s-6);
+}
+
+.page-header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.page-header p {
+  color: var(--text-light);
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   LOADING & EMPTY
+   ======================================== */
+.loading {
+  text-align: center;
+  padding: var(--s-16) var(--s-6);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.loading::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  margin: 0 auto var(--s-4);
+  animation: spin 0.65s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--s-16) var(--s-6);
+  color: var(--text-light);
+}
+
+.empty-state h3 {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.empty-state p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--s-4);
+  }
+  .page-header h1 {
+    font-size: 1.3rem;
+  }
+}
