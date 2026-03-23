@@ -1,0 +1,117 @@
+/* Job Card */
+.jobCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--s-6);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.jobCard:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-50);
+  transform: translateY(-4px);
+}
+
+/* --- Header --- */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: var(--s-4);
+}
+
+.jobTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--heading);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.jobCompany {
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.jobTypeBadge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* --- Location & Salary Row --- */
+.jobDetails {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  margin-top: var(--s-3);
+  flex-wrap: wrap;
+}
+
+/* shared icon style */
+.icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.jobLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 400;
+}
+
+.jobSalary {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  background: var(--primary-light);
+  padding: 4px 12px;
+  border-radius: var(--radius);
+}
+
+/* --- Footer --- */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--s-5);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--border-light);
+}
+
+.postedDate {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .cardHeader {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .jobDetails {
+    gap: var(--s-3);
+  }
+}

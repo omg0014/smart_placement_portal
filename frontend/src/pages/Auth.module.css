@@ -1,0 +1,210 @@
+/* Split-Screen Auth Layout */
+.authPage {
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+/* --- Left Panel: Branding --- */
+.brandPanel {
+  flex: 1;
+  background: linear-gradient(145deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--s-12);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle pattern overlay */
+.brandPanel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.brandContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 380px;
+}
+
+.brandIcon {
+  font-size: 3.5rem;
+  margin-bottom: var(--s-6);
+  display: block;
+}
+
+.brandContent h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--s-3);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.brandContent p {
+  font-size: 1rem;
+  opacity: 0.85;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.brandFeatures {
+  margin-top: var(--s-8);
+  text-align: left;
+}
+
+.brandFeature {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.brandFeature .featureIcon {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* --- Right Panel: Form --- */
+.formPanel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--s-10);
+  background: var(--bg-section);
+}
+
+.authCard {
+  width: 100%;
+  max-width: 400px;
+}
+
+.authCard h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-bottom: var(--s-8);
+  font-size: 0.9rem;
+}
+
+.authCard .btn-primary {
+  width: 100%;
+  padding: 13px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: var(--s-2);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin: var(--s-6) 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.authFooter {
+  text-align: center;
+  margin-top: var(--s-6);
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.authFooter a {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.authFooter a:hover {
+  color: var(--primary-hover);
+}
+
+/* input with icon wrapper */
+.inputWrapper {
+  position: relative;
+}
+
+.inputWrapper .inputIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.inputWrapper input {
+  padding-left: 40px !important;
+}
+
+/* --- Responsive: stack on mobile --- */
+@media (max-width: 900px) {
+  .authPage {
+    flex-direction: column;
+  }
+
+  .brandPanel {
+    padding: var(--s-8) var(--s-6);
+    min-height: auto;
+  }
+
+  .brandContent h1 {
+    font-size: 1.5rem;
+  }
+
+  .brandFeatures {
+    display: none;
+  }
+
+  .formPanel {
+    padding: var(--s-8) var(--s-6);
+  }
+}
+
+@media (max-width: 480px) {
+  .formPanel {
+    padding: var(--s-6) var(--s-4);
+  }
+
+  .authCard h2 {
+    font-size: 1.3rem;
+  }
+}
