@@ -2,11 +2,11 @@
 
 Welcome to the **Smart Job Portal**, a modern, full-stack application designed to connect top talent with great companies. 
 
-**🔴 Live Demo:** [Click here to view the live app!](https://smart-placement-portal-three.vercel.app)
+**Live Demo:** [Click here to view the live app!](https://smart-placement-portal-three.vercel.app)
 
 ---
 
-## 🌟 What is this?
+## What is this?
 
 This is a complete platform built for two types of users:
 1. **Job Seekers:** Browse job listings, upload your resume securely, apply to jobs in one click, and track your application status.
@@ -14,7 +14,7 @@ This is a complete platform built for two types of users:
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 This application is built using the **MERN** stack, featuring a premium UI design.
 - **Frontend:** React.js + Vite (Hosted on Vercel)
@@ -24,10 +24,10 @@ This application is built using the **MERN** stack, featuring a premium UI desig
 
 ---
 
-## 🚀 How to use the Live App!
+##  How to use the Live App!
 
 You don't need to download any code to try it out. Just head over to the live link:
-👉 **[Smart Placement Portal](https://smart-placement-portal-three.vercel.app)**
+ **[Smart Placement Portal](https://smart-placement-portal-three.vercel.app)**
 
 * **To test as a Recruiter:** Sign up, select "Recruiter", and try posting a new job!
 * **To test as a Job Seeker:** Sign up, select "Job Seeker", upload a test PDF resume to your dashboard, and apply for a job!
