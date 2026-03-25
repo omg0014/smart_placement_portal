@@ -1,4 +1,4 @@
-# Smart Job Portal 💼
+# Smart Job Portal 
 
 Welcome to the **Smart Job Portal**, a modern, full-stack application designed to connect top talent with great companies. 
 
@@ -34,7 +34,7 @@ You don't need to download any code to try it out. Just head over to the live li
 
 ---
 
-## 💻 Running it Locally
+## Running it Locally
 
 If you want to run the code on your own machine:
 
