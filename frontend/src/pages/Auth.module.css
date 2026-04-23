@@ -208,3 +208,128 @@
     font-size: 1.3rem;
   }
 }
+
+/* ── OTP Step styles ──────────────────────────────── */
+
+.otpHeader {
+  text-align: center;
+  margin-bottom: var(--s-6);
+}
+
+.otpIcon {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: var(--s-3);
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%   { transform: scale(0.8); opacity: 0; }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+/* 6-box OTP input row */
+.otpGroup {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: var(--s-6);
+}
+
+.otpBox {
+  width: 48px;
+  height: 56px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--heading);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  caret-color: var(--primary);
+}
+
+.otpBox:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+  transform: scale(1.06);
+}
+
+.otpBox:not(:placeholder-shown) {
+  border-color: var(--primary);
+  background: var(--bg-section);
+}
+
+/* Success message banner */
+.successMessage {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--s-4);
+  text-align: center;
+}
+
+/* OTP footer actions */
+.otpFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+
+.resendBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.resendBtn:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.resendBtn:disabled {
+  color: var(--text-muted);
+  cursor: default;
+  opacity: 0.7;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+
+.backBtn:hover {
+  color: var(--text-light);
+}
+
+@media (max-width: 400px) {
+  .otpBox {
+    width: 40px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+  .otpGroup {
+    gap: 6px;
+  }
+}
