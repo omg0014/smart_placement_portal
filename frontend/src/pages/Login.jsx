@@ -66,7 +66,7 @@ const Login = () => {
           <p className={styles.subtitle}>Enter your credentials to access your account</p>
 
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label htmlFor="email">Email address</label>
               <div className={styles.inputWrapper}>
                 <span className={styles.inputIcon}>✉️</span>
@@ -81,7 +81,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label htmlFor="password">Password</label>
               <div className={styles.inputWrapper}>
                 <span className={styles.inputIcon}>🔒</span>
@@ -96,7 +96,15 @@ const Login = () => {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', margin: 0 }}>
+                <input type="checkbox" style={{ width: 'auto', margin: 0 }} />
+                <span>Remember me</span>
+              </label>
+              <a href="#" style={{ fontSize: '0.85rem', color: '#8B5CF6', textDecoration: 'none' }}>Forgot password?</a>
+            </div>
+
+            <button type="submit" disabled={loading}>
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </form>

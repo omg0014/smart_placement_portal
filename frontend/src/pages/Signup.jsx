@@ -190,7 +190,7 @@ const Signup = () => {
               {error && <div className="error-message">{error}</div>}
 
               <form onSubmit={handleSendOtp}>
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="name">Full name</label>
                   <div className={styles.inputWrapper}>
                     <span className={styles.inputIcon}>👤</span>
@@ -206,7 +206,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="signup-email">Email address</label>
                   <div className={styles.inputWrapper}>
                     <span className={styles.inputIcon}>✉️</span>
@@ -222,7 +222,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="signup-password">Password</label>
                   <div className={styles.inputWrapper}>
                     <span className={styles.inputIcon}>🔒</span>
@@ -239,7 +239,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="role">I am a...</label>
                   <select id="role" name="role" value={form.role} onChange={handleChange}>
                     <option value="seeker">Job Seeker</option>
@@ -247,8 +247,8 @@ const Signup = () => {
                   </select>
                 </div>
 
-                <button type="submit" className="btn btn-primary" disabled={loading}>
-                  {loading ? 'Sending OTP...' : 'Send Verification OTP →'}
+                <button type="submit" disabled={loading}>
+                  {loading ? 'Sending OTP...' : 'Continue with Email →'}
                 </button>
               </form>
 
