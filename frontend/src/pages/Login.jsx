@@ -2,28 +2,28 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
+import { toast } from 'react-hot-toast';
 import styles from './Auth.module.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
       const res = await api.post('/auth/login', { email, password });
+      toast.success('Login successful!');
       login(res.data.user, res.data.token);
       navigate('/dashboard');
     } catch (err) {
       const msg = err.response?.data?.message || 'Login failed. Please try again.';
-      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -64,8 +64,6 @@ const Login = () => {
         <div className={styles.authCard}>
           <h2>Welcome back</h2>
           <p className={styles.subtitle}>Enter your credentials to access your account</p>
-
-          {error && <div className="error-message">{error}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">

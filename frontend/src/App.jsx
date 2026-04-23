@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
-import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import DashboardLayout from './layouts/DashboardLayout';
 
 // pages
 import Login from './pages/Login';
@@ -22,73 +22,48 @@ function App() {
   }
 
   return (
-    <>
-      <Navbar />
-      <Routes>
-        {/* public routes */}
-        <Route path="/jobs" element={<Jobs />} />
-        <Route path="/jobs/:id" element={<JobDetails />} />
-        <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
-        <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup />} />
+    <Routes>
+      {/* ===== Public Auth Routes ===== */}
+      <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
+      <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup />} />
 
-        {/* protected routes — any logged-in user */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+      {/* ===== Protected Dashboard Routes ===== */}
+      <Route
+        path="/*"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Routes>
+                {/* Available for all logged-in users */}
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/jobs" element={<Jobs />} />
+                <Route path="/jobs/:id" element={<JobDetails />} />
+                
+                {/* Seeker only routes */}
+                {user?.role === 'seeker' && (
+                  <>
+                    <Route path="/applications" element={<Applications />} />
+                    <Route path="/saved-jobs" element={<SavedJobs />} />
+                  </>
+                )}
 
-        {/* seeker-only routes */}
-        <Route
-          path="/applications"
-          element={
-            <ProtectedRoute allowedRoles={['seeker']}>
-              <Applications />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/saved-jobs"
-          element={
-            <ProtectedRoute allowedRoles={['seeker']}>
-              <SavedJobs />
-            </ProtectedRoute>
-          }
-        />
+                {/* Recruiter only routes */}
+                {user?.role === 'recruiter' && (
+                  <>
+                    <Route path="/post-job" element={<PostJob />} />
+                    <Route path="/edit-job/:id" element={<PostJob />} />
+                    <Route path="/applications" element={<Applications />} />
+                    <Route path="/applicants/:jobId" element={<Applicants />} />
+                  </>
+                )}
 
-        {/* recruiter-only routes */}
-        <Route
-          path="/post-job"
-          element={
-            <ProtectedRoute allowedRoles={['recruiter']}>
-              <PostJob />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/edit-job/:id"
-          element={
-            <ProtectedRoute allowedRoles={['recruiter']}>
-              <PostJob />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/applicants/:jobId"
-          element={
-            <ProtectedRoute allowedRoles={['recruiter']}>
-              <Applicants />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* default redirect */}
-        <Route path="*" element={<Navigate to="/jobs" />} />
-      </Routes>
-    </>
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+              </Routes>
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 

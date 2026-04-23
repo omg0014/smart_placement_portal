@@ -1,80 +1,58 @@
 /* ============================================
-   Smart Job Portal — Design System
-   Professional SaaS-style UI
+   Smart Job Portal — Modern SaaS UI System
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* --- Design Tokens --- */
 :root {
-  /* Primary blues */
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-dark: #1e40af;
-  --primary-light: #eff6ff;
-  --primary-50: #dbeafe;
-
-  /* Deep accent for headings / emphasis */
-  --heading: #1e293b;
-  --text: #334155;
-  --text-light: #64748b;
-  --text-muted: #94a3b8;
-
-  /* Layered backgrounds — NOT plain white */
-  --bg-body: #f1f5f9;          /* main page background */
-  --bg-section: #f8fafc;       /* slightly lighter sections */
-  --bg-card: #ffffff;           /* card surfaces */
-  --bg-input: #f8fafc;          /* input backgrounds */
-  --bg-sidebar: #f1f5f9;       /* sidebar / aside */
-  --bg-nav: #ffffff;            /* navbar */
-
-  /* Borders */
-  --border: #e2e8f0;
-  --border-light: #f1f5f9;
-
-  /* Accents */
-  --green: #10b981;
-  --green-light: #ecfdf5;
-  --green-dark: #065f46;
+  /* Modern Blue & Indigo Gradient Vibe */
+  --primary: #2563eb;         /* Blue */
+  --primary-hover: #1d4ed8;
+  --secondary: #8b5cf6;       /* Purple */
+  --accent: #22c55e;          /* Green */
   --red: #ef4444;
-  --red-light: #fef2f2;
-  --red-dark: #991b1b;
-  --amber: #f59e0b;
-  --amber-light: #fffbeb;
-  --indigo: #6366f1;
-  --indigo-light: #eef2ff;
 
-  /* Typography */
-  --font: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Light Theme Colors (Default & Only) */
+  --bg-body: #f8fafc;         /* Slate 50 */
+  --bg-card: #ffffff;
+  --bg-section: #f1f5f9;      /* Slate 100 */
+  --bg-input: #f8fafc;
+  --bg-nav: #ffffff;
 
-  /* Spacing scale */
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 12px;
-  --s-4: 16px;
-  --s-5: 20px;
-  --s-6: 24px;
-  --s-8: 32px;
-  --s-10: 40px;
-  --s-12: 48px;
-  --s-16: 64px;
+  --heading: #0f172a;         /* Slate 900 */
+  --text: #334155;            /* Slate 700 */
+  --text-light: #64748b;      /* Slate 500 */
+  --text-muted: #94a3b8;      /* Slate 400 */
+  --border: #e2e8f0;          /* Slate 200 */
+  --border-light: #f1f5f9;
+  
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
 
-  /* Borders & Shadows */
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px;
+  --s-12: 48px; --s-16: 64px;
+
+  /* Shapes */
   --radius: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
-  --radius-2xl: 20px;
 
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
-  --shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  /* Glass / Shadows */
+  --shadow-sm: 0 1px 2px var(--shadow-color);
+  --shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+  --shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+  --shadow-focus: 0 0 0 3px rgba(99, 102, 241, 0.3);
 
-  --ease: 0.2s ease;
-  --ease-slow: 0.3s ease;
+  --ease: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-slow: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 
 /* --- Reset --- */
 *,
@@ -161,7 +139,7 @@ img { max-width: 100%; }
 }
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-hover);
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.4);
 }
 
 .btn-secondary {

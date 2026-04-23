@@ -1,6 +1,8 @@
 const Application = require('../models/Application');
 const Job = require('../models/Job');
 const User = require('../models/User');
+const Notification = require('../models/Notification');
+const sendEmail = require('../utils/email');
 
 // POST /api/applications — apply to a job (seeker only)
 const applyToJob = async (req, res) => {
@@ -28,6 +30,33 @@ const applyToJob = async (req, res) => {
       applicant: req.user._id,
       resume: req.user.resume || '',
     });
+
+    // --- Notification & Email System for Recruiter ---
+    const recruiter = await User.findById(job.postedBy);
+    if (recruiter) {
+      const message = `New applicant: ${req.user.name || 'A job seeker'} applied for ${job.title} role.`;
+      
+      // 1. Create DB Notification
+      const notif = await Notification.create({
+        userId: recruiter._id,
+        title: 'New Applicant',
+        message,
+        type: 'new_applicant',
+      });
+
+      // 2. Real-time Socket Event
+      const socketId = req.userSockets?.get(recruiter._id.toString());
+      if (socketId) {
+        req.io.to(socketId).emit('new_notification', notif);
+      }
+
+      // 3. Email Recruiter
+      await sendEmail({
+        email: recruiter.email,
+        subject: `New Applicant for ${job.title}`,
+        message: `Hello ${recruiter.name},\n\n${message}\n\nPlease check your dashboard to review their resume.`,
+      });
+    }
 
     res.status(201).json({ message: 'Application submitted!', application });
   } catch (error) {
@@ -100,6 +129,33 @@ const updateApplicationStatus = async (req, res) => {
 
     application.status = status;
     await application.save();
+
+    // --- Notification & Email System for Job Seeker ---
+    const seeker = await User.findById(application.applicant);
+    if (seeker) {
+      const message = `Your application for ${application.job.title} at ${application.job.company} has been ${status}.`;
+
+      // 1. Create DB Notification
+      const notif = await Notification.create({
+        userId: seeker._id,
+        title: 'Application Status Updated',
+        message,
+        type: 'application_status',
+      });
+
+      // 2. Real-time Socket Event
+      const socketId = req.userSockets?.get(seeker._id.toString());
+      if (socketId) {
+        req.io.to(socketId).emit('new_notification', notif);
+      }
+
+      // 3. Email Seeker
+      await sendEmail({
+        email: seeker.email,
+        subject: `Update on your application for ${application.job.title}`,
+        message: `Hello ${seeker.name},\n\n${message}\n\nGood luck!`,
+      });
+    }
 
     res.json({ message: 'Application status updated', application });
   } catch (error) {

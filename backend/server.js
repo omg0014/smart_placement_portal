@@ -8,12 +8,62 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const fs = require('fs');
 
+// Create standard HTTP server and Socket.io
+const http = require('http');
+const { Server } = require('socket.io');
+
 // import routes
 const authRoutes = require('./routes/auth');
 const jobRoutes = require('./routes/jobs');
 const applicationRoutes = require('./routes/applications');
+const notificationRoutes = require('./routes/notifications');
 
 const app = express();
+const server = http.createServer(app);
+
+// Setup Socket.io
+const io = new Server(server, {
+  cors: {
+    origin: [
+      'http://localhost:5173', 
+      'http://localhost:5174', 
+      'https://smart-placement-portal-three.vercel.app'
+    ],
+    credentials: true,
+  },
+});
+
+// A Map to keep track of connected users: { userId: socketId }
+const userSockets = new Map();
+
+io.on('connection', (socket) => {
+  console.log('Socket connected:', socket.id);
+
+  // When a user logs in, they emit 'register' with their DB user ID
+  socket.on('register', (userId) => {
+    userSockets.set(userId, socket.id);
+    console.log(`User ${userId} registered with socket ${socket.id}`);
+  });
+
+  socket.on('disconnect', () => {
+    // Find and remove the disconnected socket
+    for (const [userId, socketId] of userSockets.entries()) {
+      if (socketId === socket.id) {
+        userSockets.delete(userId);
+        break;
+      }
+    }
+    console.log('Socket disconnected:', socket.id);
+  });
+});
+
+// Attach socket map and io to req for easy access in controllers
+app.use((req, res, next) => {
+  req.io = io;
+  req.userSockets = userSockets;
+  next();
+});
+
 const PORT = process.env.PORT || 5000;
 
 // --- Middleware ---
@@ -41,6 +91,7 @@ if (!fs.existsSync(uploadsDir)) {
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // simple health check
 app.get('/', (req, res) => {
@@ -52,7 +103,8 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ Connected to MongoDB');
-    app.listen(PORT, () => {
+    // Notice: listening on `server` not `app` because of Socket.io
+    server.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
   })

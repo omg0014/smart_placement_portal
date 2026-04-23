@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../api/axios';
+import { toast } from 'react-hot-toast';
 
 const AuthContext = createContext(null);
 
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
           // token is invalid — clean up
           console.error('Could not load user:', error);
-          logout();
+          logoutSilent();
         }
       }
       setLoading(false);
@@ -36,11 +37,16 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  const logout = () => {
+  const logoutSilent = () => {
     setUser(null);
     setToken('');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  };
+
+  const logout = () => {
+    logoutSilent();
+    toast.success('Logged out successfully');
   };
 
   return (

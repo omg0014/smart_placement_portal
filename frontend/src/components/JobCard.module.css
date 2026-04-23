@@ -6,13 +6,14 @@
   padding: var(--s-6);
   cursor: pointer;
   position: relative;
-  transition: all 0.25s ease;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .jobCard:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
   border-color: var(--primary-50);
-  transform: translateY(-4px);
+  transform: translateY(-6px) scale(1.01);
+  background: #ffffff;
 }
 
 /* --- Header --- */

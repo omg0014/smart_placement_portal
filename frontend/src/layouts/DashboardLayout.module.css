@@ -1,0 +1,28 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-body);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  transition: margin-left 0.3s;
+}
+
+.pageContent {
+  flex: 1;
+  padding: var(--s-6) var(--s-8);
+  overflow-y: auto;
+  min-height: calc(100vh - 70px);
+}
+
+@media (max-width: 768px) {
+  .pageContent {
+    padding: var(--s-4);
+  }
+}

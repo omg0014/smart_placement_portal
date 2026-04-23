@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
+import { toast } from 'react-hot-toast';
 import styles from './Auth.module.css';
 
 const OTP_LENGTH = 6;
@@ -54,10 +55,13 @@ const Signup = () => {
       setStep(2);
       setCountdown(60);
       setOtpDigits(Array(OTP_LENGTH).fill(''));
+      toast.success('OTP sent to your email!');
       // Focus first OTP box after render
       setTimeout(() => otpRefs.current[0]?.focus(), 100);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to send OTP. Please try again.');
+      const msg = err.response?.data?.message || 'Failed to send OTP. Please try again.';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -75,10 +79,14 @@ const Signup = () => {
       setStateId(res.data.state_id);
       setCountdown(60);
       setOtpDigits(Array(OTP_LENGTH).fill(''));
-      setSuccess('A new OTP has been sent to your email.');
+      const msg = 'A new OTP has been sent to your email.';
+      setSuccess(msg);
+      toast.success(msg);
       setTimeout(() => otpRefs.current[0]?.focus(), 100);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to resend OTP.');
+      const msg = err.response?.data?.message || 'Failed to resend OTP.';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -128,10 +136,13 @@ const Signup = () => {
 
     try {
       const res = await api.post('/auth/verify-otp', { state_id: stateId, otp });
+      toast.success('Account created successfully!');
       login(res.data.user, res.data.token);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'OTP verification failed. Please try again.');
+      const msg = err.response?.data?.message || 'OTP verification failed. Please try again.';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
