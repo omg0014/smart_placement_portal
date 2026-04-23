@@ -3,7 +3,7 @@ const Notification = require('../models/Notification');
 // Get all notifications for the logged-in user
 exports.getNotifications = async (req, res) => {
   try {
-    const notifications = await Notification.find({ userId: req.user.userId })
+    const notifications = await Notification.find({ userId: req.user._id })
       .sort({ createdAt: -1 })
       .limit(50); // Get latest 50
 
@@ -18,7 +18,7 @@ exports.getNotifications = async (req, res) => {
 exports.markAsRead = async (req, res) => {
   try {
     const notification = await Notification.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user.userId },
+      { _id: req.params.id, userId: req.user._id },
       { isRead: true },
       { new: true }
     );
@@ -37,7 +37,7 @@ exports.markAsRead = async (req, res) => {
 // Mark ALL notifications as read
 exports.markAllAsRead = async (req, res) => {
   try {
-    await Notification.updateMany({ userId: req.user.userId, isRead: false }, { isRead: true });
+    await Notification.updateMany({ userId: req.user._id, isRead: false }, { isRead: true });
     res.json({ message: 'All notifications marked as read' });
   } catch (err) {
     console.error('Error marking all read:', err.message);
