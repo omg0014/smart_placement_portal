@@ -224,6 +224,7 @@ const Auth = ({ mode: initialMode = 'login' }) => {
     </form>
   );
 
+  const renderSignupStep1 = () => (
       <form 
         onSubmit={(e) => {
           e.preventDefault();
