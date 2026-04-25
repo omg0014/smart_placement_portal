@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard';
 import Applications from './pages/Applications';
 import Applicants from './pages/Applicants';
 import SavedJobs from './pages/SavedJobs';
+import Onboarding from './pages/Onboarding';
 
 function App() {
   const { user, loading } = useAuth();
@@ -42,6 +43,7 @@ function App() {
                 {/* Seeker only routes */}
                 {user?.role === 'seeker' && (
                   <>
+                    <Route path="/onboarding" element={<Onboarding />} />
                     <Route path="/applications" element={<Applications />} />
                     <Route path="/saved-jobs" element={<SavedJobs />} />
                   </>

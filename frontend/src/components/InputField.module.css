@@ -1,0 +1,138 @@
+.inputWrapper {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 100%;
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.inputElement {
+  width: 100%;
+  padding: 1.25rem 1rem 0.5rem 1rem;
+  font-size: 1rem;
+  color: #1E293B;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.inputElement:focus {
+  border-color: #6366F1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  background-color: #FFFFFF;
+}
+
+.inputElement:disabled {
+  background-color: #E2E8F0;
+  color: #94A3B8;
+  cursor: not-allowed;
+  border-color: #CBD5E1;
+}
+
+textarea.inputElement {
+  resize: vertical;
+  min-height: 100px;
+}
+
+select.inputElement {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+.floatingLabel {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748B;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease-out;
+}
+
+textarea ~ .floatingLabel {
+  top: 1rem;
+  transform: translateY(0);
+}
+
+.floatingLabel.active {
+  top: 0.35rem;
+  transform: translateY(0);
+  font-size: 0.75rem;
+  color: #6366F1;
+  font-weight: 500;
+}
+
+.hasError .inputElement {
+  border-color: #EF4444;
+}
+
+.hasError .floatingLabel.active {
+  color: #EF4444;
+}
+
+.asterisk {
+  color: #EF4444;
+}
+
+.errorMessage {
+  display: block;
+  color: #EF4444;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  margin-left: 0.25rem;
+  font-weight: 500;
+}
+
+.helpText {
+  display: block;
+  color: #64748B;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  margin-left: 0.25rem;
+}
+
+.fileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.staticLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1E293B;
+  margin-left: 0.25rem;
+}
+
+.fileInput {
+  font-size: 0.9rem;
+  color: #64748B;
+  padding: 0.5rem 0;
+}
+
+.fileInput::file-selector-button {
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  background-color: #E2E8F0;
+  border: 1px solid #CBD5E1;
+  color: #1E293B;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: 1rem;
+}
+
+.fileInput::file-selector-button:hover {
+  background-color: #CBD5E1;
+}

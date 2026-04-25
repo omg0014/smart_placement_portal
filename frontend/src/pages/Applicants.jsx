@@ -73,21 +73,69 @@ const Applicants = () => {
           {applicants.map((app) => (
             <div key={app._id} className={styles.applicantCard}>
               <div className={styles.applicantInfo}>
-                <h4>{app.applicant?.name || 'Unknown'}</h4>
-                <p>{app.applicant?.email}</p>
-                {app.applicant?.resume && (
-                  <a
-                    href={app.applicant.resume.startsWith('http') ? app.applicant.resume : `${API_BASE_URL}/uploads/resumes/${app.applicant.resume}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.resumeLink}
-                  >
-                    📄 View Resume
-                  </a>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div>
+                    <h4>{app.applicant?.name || 'Unknown'}</h4>
+                    <p>{app.applicant?.email}</p>
+                    {app.applicant?.phone && <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '4px' }}>📞 {app.applicant.phone}</p>}
+                    {app.applicant?.address?.city && <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '2px' }}>📍 {app.applicant.address.city}, {app.applicant.address.state}</p>}
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    {app.applicant?.experienceLevel && <p style={{ fontSize: '0.85rem' }}><strong>Exp:</strong> {app.applicant.experienceLevel}</p>}
+                    {app.applicant?.education?.degree && <p style={{ fontSize: '0.85rem', marginTop: '4px' }}><strong>Edu:</strong> {app.applicant.education.degree}</p>}
+                  </div>
+                </div>
+                
+                {app.applicant?.skills?.length > 0 && (
+                  <div style={{ marginTop: '12px' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Skills:</p>
+                    <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginTop: '5px' }}>
+                      {app.applicant.skills.map((skill, i) => (
+                        <span key={i} style={{ background: 'rgba(100,108,255,0.15)', color: 'var(--primary-color)', padding: '2px 10px', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(100,108,255,0.2)' }}>{skill}</span>
+                      ))}
+                    </div>
+                  </div>
                 )}
+
+                {app.applicant?.preferredRoles?.length > 0 && (
+                  <div style={{ marginTop: '10px' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Preferred Roles:</p>
+                    <p style={{ fontSize: '0.85rem', marginTop: '2px' }}>{app.applicant.preferredRoles.join(', ')}</p>
+                  </div>
+                )}
+
+                {app.applicant?.bio && (
+                  <div style={{ marginTop: '10px', background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', border: '1px dashed var(--border-color)' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '500', marginBottom: '4px' }}>About:</p>
+                    <p style={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'var(--text-color)' }}>"{app.applicant.bio}"</p>
+                  </div>
+                )}
+                
+                <div style={{ marginTop: '15px', display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+                  {app.applicant?.resume && (
+                    <a
+                      href={app.applicant.resume.startsWith('http') ? app.applicant.resume : `${API_BASE_URL}/uploads/resumes/${app.applicant.resume}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={styles.resumeLink}
+                    >
+                      📄 Resume
+                    </a>
+                  )}
+                  {app.applicant?.linkedin && (
+                    <a href={app.applicant.linkedin} target="_blank" rel="noreferrer" className={styles.resumeLink}>
+                      🔗 LinkedIn
+                    </a>
+                  )}
+                  {app.applicant?.portfolio && (
+                    <a href={app.applicant.portfolio} target="_blank" rel="noreferrer" className={styles.resumeLink}>
+                      🌐 Portfolio
+                    </a>
+                  )}
+                </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '1rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
                 <span className={`badge badge-${app.status}`}>{app.status}</span>
                 <select
                   className={styles.statusSelect}

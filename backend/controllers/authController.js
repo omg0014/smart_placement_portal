@@ -113,15 +113,13 @@ const verifyOtp = async (req, res) => {
 
     const token = generateToken(user);
 
+    const userObj = user.toObject();
+    delete userObj.password;
+
     res.status(201).json({
       message: 'Account created successfully',
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
+      user: userObj,
     });
   } catch (error) {
     const msg = error?.message || error?.Description || JSON.stringify(error);
@@ -154,15 +152,13 @@ const signup = async (req, res) => {
 
     const token = generateToken(user);
 
+    const userObj = user.toObject();
+    delete userObj.password;
+
     res.status(201).json({
       message: 'Account created successfully',
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
+      user: userObj,
     });
   } catch (error) {
     console.error('Signup error:', error.message);
@@ -187,15 +183,13 @@ const login = async (req, res) => {
 
     const token = generateToken(user);
 
+    const userObj = user.toObject();
+    delete userObj.password;
+
     res.json({
       message: 'Login successful',
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
+      user: userObj,
     });
   } catch (error) {
     console.error('Login error:', error.message);

@@ -17,6 +17,7 @@ const authRoutes = require('./routes/auth');
 const jobRoutes = require('./routes/jobs');
 const applicationRoutes = require('./routes/applications');
 const notificationRoutes = require('./routes/notifications');
+const profileRoutes = require('./routes/profile');
 
 const app = express();
 const server = http.createServer(app);
@@ -92,6 +93,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/profile', profileRoutes);
 
 // simple health check
 app.get('/', (req, res) => {

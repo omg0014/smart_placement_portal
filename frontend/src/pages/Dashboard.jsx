@@ -8,6 +8,7 @@ const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const [activeTab, setActiveTab] = useState('overview');
   const [myJobs, setMyJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -83,6 +84,19 @@ const Dashboard = () => {
   ).length;
   const reviewedCount = applications.filter((a) => a.status === 'reviewed').length;
 
+  // Calculate completeness
+  let score = 0;
+  if (user.phone) score += 10;
+  if (user.address?.city) score += 10;
+  if (user.education?.college) score += 10;
+  if (user.experienceLevel) score += 10;
+  if (user.preferredRoles?.length > 0) score += 15;
+  if (user.skills?.length > 0) score += 15;
+  if (user.linkedin) score += 10;
+  if (user.bio) score += 10;
+  if (user.resume) score += 10;
+
+
   return (
     <div className={styles.dashboardPage}>
       <div className="page-header">
@@ -121,6 +135,15 @@ const Dashboard = () => {
                   <span className={styles.sidebarStatLabel}>Accepted</span>
                   <span className={styles.sidebarStatValue}>{acceptedCount}</span>
                 </div>
+                <div className={styles.profileCompleteness}>
+                  <div className={styles.completenessHeader}>
+                    <span>Profile Completeness</span>
+                    <span>{score}%</span>
+                  </div>
+                  <div className={styles.progressBar}>
+                    <div className={styles.progressFill} style={{ width: `${score}%` }}></div>
+                  </div>
+                </div>
               </>
             )}
             {user.role === 'recruiter' && (
@@ -137,66 +160,144 @@ const Dashboard = () => {
           {/* === SEEKER VIEW === */}
           {user.role === 'seeker' && (
             <>
-              {/* Resume Upload */}
-              <div className={styles.resumeSection}>
-                <h3>📄 My Resume</h3>
-                <div className={styles.resumeUpload}>
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={(e) => setResumeFile(e.target.files[0])}
-                  />
-                  <button className="btn btn-primary btn-small" onClick={handleResumeUpload}>
-                    Upload
-                  </button>
-                </div>
-                {resumeName && (
-                  <p className={styles.currentResume}>✓ Current: {resumeName}</p>
-                )}
-                {uploadMsg && (
-                  <p className={styles.currentResume}>{uploadMsg}</p>
-                )}
+              <div className={styles.tabs}>
+                <button 
+                  className={`${styles.tab} ${activeTab === 'overview' ? styles.activeTab : ''}`}
+                  onClick={() => setActiveTab('overview')}
+                >
+                  Overview
+                </button>
+                <button 
+                  className={`${styles.tab} ${activeTab === 'profile' ? styles.activeTab : ''}`}
+                  onClick={() => setActiveTab('profile')}
+                >
+                  My Profile
+                </button>
               </div>
 
-              {/* Stats Row */}
-              <div className={styles.statsRow}>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{applications.length}</div>
-                  <div className={styles.statLabel}>Total Applied</div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{pendingCount}</div>
-                  <div className={styles.statLabel}>Pending</div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{reviewedCount}</div>
-                  <div className={styles.statLabel}>Reviewed</div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{acceptedCount}</div>
-                  <div className={styles.statLabel}>Accepted</div>
-                </div>
-              </div>
-
-              {/* Recent Applications List */}
-              <div className={styles.sectionHeader}>
-                <h3 className={styles.sectionTitle}>Recent Applications</h3>
-              </div>
-
-              {applications.length === 0 ? (
-                <div className="empty-state">
-                  <p>You haven't applied to any jobs yet.</p>
-                </div>
-              ) : (
-                applications.slice(0, 6).map((app) => (
-                  <div key={app._id} className={styles.jobRow}>
-                    <div className={styles.jobRowInfo}>
-                      <h4>{app.job?.title || 'Job removed'}</h4>
-                      <p>{app.job?.company} • {app.job?.location}</p>
+              {activeTab === 'overview' && (
+                <>
+                  {/* Resume Upload */}
+                  <div className={styles.resumeSection}>
+                    <h3>📄 My Resume</h3>
+                    <div className={styles.resumeUpload}>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={(e) => setResumeFile(e.target.files[0])}
+                      />
+                      <button className="btn btn-primary btn-small" onClick={handleResumeUpload}>
+                        Upload
+                      </button>
                     </div>
-                    <span className={`badge badge-${app.status}`}>{app.status}</span>
+                    {resumeName && (
+                      <p className={styles.currentResume}>✓ Current: {resumeName}</p>
+                    )}
+                    {uploadMsg && (
+                      <p className={styles.currentResume}>{uploadMsg}</p>
+                    )}
                   </div>
-                ))
+
+                  {/* Stats Row */}
+                  <div className={styles.statsRow}>
+                    <div className={styles.statCard}>
+                      <div className={styles.statNumber}>{applications.length}</div>
+                      <div className={styles.statLabel}>Total Applied</div>
+                    </div>
+                    <div className={styles.statCard}>
+                      <div className={styles.statNumber}>{pendingCount}</div>
+                      <div className={styles.statLabel}>Pending</div>
+                    </div>
+                    <div className={styles.statCard}>
+                      <div className={styles.statNumber}>{reviewedCount}</div>
+                      <div className={styles.statLabel}>Reviewed</div>
+                    </div>
+                    <div className={styles.statCard}>
+                      <div className={styles.statNumber}>{acceptedCount}</div>
+                      <div className={styles.statLabel}>Accepted</div>
+                    </div>
+                  </div>
+
+                  {/* Recent Applications List */}
+                  <div className={styles.sectionHeader}>
+                    <h3 className={styles.sectionTitle}>Recent Applications</h3>
+                  </div>
+
+                  {applications.length === 0 ? (
+                    <div className="empty-state">
+                      <p>You haven't applied to any jobs yet.</p>
+                    </div>
+                  ) : (
+                    applications.slice(0, 6).map((app) => (
+                      <div key={app._id} className={styles.jobRow}>
+                        <div className={styles.jobRowInfo}>
+                          <h4>{app.job?.title || 'Job removed'}</h4>
+                          <p>{app.job?.company} • {app.job?.location}</p>
+                        </div>
+                        <span className={`badge badge-${app.status}`}>{app.status}</span>
+                      </div>
+                    ))
+                  )}
+                </>
+              )}
+
+              {activeTab === 'profile' && (
+                <div className={styles.profileDetailsCard}>
+                  <div className={styles.profileHeader}>
+                    <h3>Professional Profile</h3>
+                    <button className="btn btn-secondary btn-small" onClick={() => navigate('/onboarding')}>Edit Profile</button>
+                  </div>
+                  <div className={styles.profileGrid}>
+                    <div className={styles.profileItem}>
+                      <span className={styles.label}>Phone</span>
+                      <span className={styles.value}>{user.phone || 'Not provided'}</span>
+                    </div>
+                    <div className={styles.profileItem}>
+                      <span className={styles.label}>Location</span>
+                      <span className={styles.value}>
+                        {user.address?.city ? `${user.address.city}, ${user.address.state}, ${user.address.country}` : 'Not provided'}
+                      </span>
+                    </div>
+                    <div className={styles.profileItem}>
+                      <span className={styles.label}>Experience</span>
+                      <span className={styles.value}>{user.experienceLevel || 'Not provided'}</span>
+                    </div>
+                    <div className={styles.profileItem}>
+                      <span className={styles.label}>Education</span>
+                      <span className={styles.value}>
+                        {user.education?.degree ? `${user.education.degree} from ${user.education.college} (${user.education.year})` : 'Not provided'}
+                      </span>
+                    </div>
+                    <div className={styles.profileItemFull}>
+                      <span className={styles.label}>Preferred Roles</span>
+                      <div className={styles.tags}>
+                        {user.preferredRoles?.length > 0 ? user.preferredRoles.map((r, i) => <span key={i} className={styles.tag}>{r}</span>) : 'Not provided'}
+                      </div>
+                    </div>
+                    <div className={styles.profileItemFull}>
+                      <span className={styles.label}>Skills</span>
+                      <div className={styles.tags}>
+                        {user.skills?.length > 0 ? user.skills.map((s, i) => <span key={i} className={styles.tag}>{s}</span>) : 'Not provided'}
+                      </div>
+                    </div>
+                    <div className={styles.profileItemFull}>
+                      <span className={styles.label}>Bio</span>
+                      <span className={styles.value}>{user.bio || 'Not provided'}</span>
+                    </div>
+                    <div className={styles.profileItem}>
+                      <span className={styles.label}>LinkedIn</span>
+                      <span className={styles.value}>
+                        {user.linkedin ? <a href={user.linkedin} target="_blank" rel="noreferrer">View Profile</a> : 'Not provided'}
+                      </span>
+                    </div>
+                    <div className={styles.profileItem}>
+                      <span className={styles.label}>Portfolio/GitHub</span>
+                      <span className={styles.value}>
+                        {user.portfolio ? <a href={user.portfolio} target="_blank" rel="noreferrer">View Portfolio</a> : 'Not provided'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               )}
             </>
           )}
