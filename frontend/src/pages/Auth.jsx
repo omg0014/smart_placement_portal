@@ -224,73 +224,79 @@ const Auth = ({ mode: initialMode = 'login' }) => {
     </form>
   );
 
-  const renderSignupStep1 = () => (
-    <div className={styles.stepWrapper}>
-      <div className={styles.formGroup}>
-        <label>Full Name</label>
-        <div className={styles.inputWrapper}>
-          <span className={styles.inputIcon}>👤</span>
-          <input
-            type="text"
-            name="name"
-            placeholder="Om Gupta"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-      </div>
-      <div className={styles.formGroup}>
-        <label>Email Address</label>
-        <div className={styles.inputWrapper}>
-          <span className={styles.inputIcon}>✉️</span>
-          <input
-            type="email"
-            name="email"
-            placeholder="om@example.com"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-      </div>
-      <div className={styles.formGroup}>
-        <label>Password</label>
-        <div className={styles.inputWrapper}>
-          <span className={styles.inputIcon}>🔒</span>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            placeholder="At least 6 characters"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-            minLength={6}
-          />
-        </div>
-      </div>
-      <div className={styles.formGroup}>
-        <label>I am a...</label>
-        <select name="role" value={formData.role} onChange={handleInputChange}>
-          <option value="seeker">Job Seeker</option>
-          <option value="recruiter">Recruiter</option>
-        </select>
-      </div>
-      <button 
-        className={styles.submitBtn} 
-        onClick={() => {
-          if (formData.role === 'recruiter') setStep(4); // Recruiters skip profile steps for now
+      <form 
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!formData.name || !formData.email || formData.password.length < 6) {
+            toast.error('Please fill all fields correctly (Password min. 6 chars)');
+            return;
+          }
+          if (formData.role === 'recruiter') setStep(4);
           else setStep(2);
-        }}
-        disabled={!formData.name || !formData.email || formData.password.length < 6}
+        }} 
+        className={styles.stepWrapper}
       >
-        Next Step →
-      </button>
-    </div>
-  );
+        <div className={styles.formGroup}>
+          <label>Full Name</label>
+          <div className={styles.inputWrapper}>
+            <span className={styles.inputIcon}>👤</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="Om Gupta"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+        </div>
+        <div className={styles.formGroup}>
+          <label>Email Address</label>
+          <div className={styles.inputWrapper}>
+            <span className={styles.inputIcon}>✉️</span>
+            <input
+              type="email"
+              name="email"
+              placeholder="om@example.com"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+        </div>
+        <div className={styles.formGroup}>
+          <label>Password</label>
+          <div className={styles.inputWrapper}>
+            <span className={styles.inputIcon}>🔒</span>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="At least 6 characters"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+              minLength={6}
+            />
+          </div>
+        </div>
+        <div className={styles.formGroup}>
+          <label>I am a...</label>
+          <select name="role" value={formData.role} onChange={handleInputChange}>
+            <option value="seeker">Job Seeker</option>
+            <option value="recruiter">Recruiter</option>
+          </select>
+        </div>
+        <button type="submit" className={styles.submitBtn}>
+          Next Step →
+        </button>
+      </form>
+    );
 
   const renderSignupStep2 = () => (
-    <div className={styles.stepWrapper}>
+    <form 
+      onSubmit={(e) => { e.preventDefault(); setStep(3); }} 
+      className={styles.stepWrapper}
+    >
       <div className={styles.formGroup}>
         <label>Professional Skills</label>
         <div className={styles.inputWrapper}>
@@ -319,10 +325,10 @@ const Auth = ({ mode: initialMode = 'login' }) => {
         </div>
       </div>
       <div style={{display: 'flex', gap: 12}}>
-        <button className={styles.submitBtn} style={{background: '#E5E7EB', color: 'var(--text-main)'}} onClick={() => setStep(1)}>Back</button>
-        <button className={styles.submitBtn} onClick={() => setStep(3)}>Next Step →</button>
+        <button type="button" className={styles.submitBtn} style={{background: '#E5E7EB', color: 'var(--text-main)'}} onClick={() => setStep(1)}>Back</button>
+        <button type="submit" className={styles.submitBtn}>Next Step →</button>
       </div>
-    </div>
+    </form>
   );
 
   const renderSignupStep3 = () => (
@@ -435,15 +441,6 @@ const Auth = ({ mode: initialMode = 'login' }) => {
               {step === 4 && renderSignupStep4()}
             </>
           )}
-
-          <div className={styles.socialDivider}>
-            <span>Or continue with</span>
-          </div>
-
-          <button className={styles.googleBtn} onClick={() => toast.error('Google login coming soon!')}>
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20" />
-            Continue with Google
-          </button>
         </div>
       </div>
 
