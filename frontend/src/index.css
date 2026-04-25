@@ -36,34 +36,50 @@
 :root {
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Spacing */
-  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px;
-  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px;
-  --s-12: 48px; --s-16: 64px;
-
-  /* Shapes */
+  /* Soft UI Color Palette */
+  --primary: #10B981; /* Emerald/Green */
+  --primary-light: #dcfce7;
+  --secondary: #6366F1;
+  --accent: #F43F5E;
+  
+  --bg-body: #f0fdf4; /* Very light green */
+  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #dcfce7 100%);
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-sidebar: linear-gradient(180deg, #1f2937 0%, #064e3b 100%);
+  
+  --text-main: #1f2937;
+  --text-light: #4b5563;
+  --text-muted: #9ca3af;
+  --heading: #064e3b;
+  
+  --border: rgba(255, 255, 255, 0.4);
+  --border-light: rgba(0, 0, 0, 0.05);
+  
   --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-
-  /* Professional Shadows */
-  --shadow-xs: 0 1px 2px 0 var(--shadow-color);
-  --shadow-sm: 0 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color);
-  --shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
-  --shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
-  --shadow-xl: 0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color);
-  --shadow-focus: 0 0 0 4px rgba(79, 70, 229, 0.15);
-
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --ease: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 100px;
+  
+  /* Soft Layered Shadows */
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 10px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 20px 50px rgba(16, 185, 129, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
+  --shadow-soft: 8px 8px 16px rgba(0, 0, 0, 0.04), -8px -8px 16px rgba(255, 255, 255, 0.8);
+  --shadow-focus: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Spacing */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-4: 1rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-12: 3rem;
 }
 
-
 /* --- Reset --- */
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -74,13 +90,12 @@ html {
 }
 
 body {
-  font-family: var(--font);
-  background-color: var(--bg-body);
-  color: var(--text);
-  line-height: 1.6;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 15px;
 }
 
 a {

@@ -1,53 +1,80 @@
 .jobsPage {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--s-6) var(--s-12);
+  padding: 0 var(--s-4) var(--s-12);
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .searchBar {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--s-4);
+  background: white;
+  border-radius: var(--radius-pill);
+  padding: 8px 12px;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  gap: var(--s-4);
-  margin-bottom: var(--s-8);
-  box-shadow: var(--shadow-md);
+  gap: 12px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: var(--transition);
+}
+
+.searchBar:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1);
 }
 
 .searchBar input, .searchBar select {
-  border: 1px solid var(--border);
-  padding: 12px 16px;
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 0.9rem;
-  transition: var(--transition);
-  background: var(--bg-body);
+  border: none;
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  background: transparent;
+  color: var(--text-main);
 }
 
 .searchBar input:focus, .searchBar select:focus {
   outline: none;
-  border-color: var(--primary);
-  background: white;
-  box-shadow: var(--shadow-focus);
+  background: #f8fafc;
+}
+
+.searchBar select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 16px;
 }
 
 .resultCount {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-light);
-  margin-bottom: var(--s-4);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 24px;
+  display: inline-block;
+  padding: 6px 20px;
+  background: var(--primary-light);
+  border-radius: var(--radius-pill);
 }
 
 .jobsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--s-6);
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 32px;
 }
 
 @media (max-width: 900px) {
   .searchBar {
     grid-template-columns: 1fr;
+    border-radius: var(--radius-lg);
+    padding: 16px;
   }
 }

@@ -16,7 +16,6 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
   const recruiterLinks = [
     { to: '/dashboard', label: 'Dashboard', icon: <Home size={20} /> },
     { to: '/post-job', label: 'Post Job', icon: <FileText size={20} /> },
-    { to: '/applications', label: 'All Applicants', icon: <Users size={20} /> }, // Using generic view
   ];
 
   const links = user?.role === 'recruiter' ? recruiterLinks : seekerLinks;

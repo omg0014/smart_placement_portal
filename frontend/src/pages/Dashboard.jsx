@@ -109,18 +109,18 @@ const Dashboard = () => {
       <div className={styles.dashboardLayout}>
         {/* ========== SIDEBAR ========== */}
         <aside className={styles.sidebar}>
-          {/* Profile Card */}
-          <div className={styles.profileCard}>
-            <div className={styles.profileCover}></div>
-            <div className={styles.profileInfo}>
-              <div className={styles.avatar}>{getInitials(user.name)}</div>
-              <div className={styles.profileName}>{user.name}</div>
-              <div className={styles.profileEmail}>{user.email}</div>
-              <span className={`badge badge-${user.role === 'recruiter' ? 'reviewed' : 'shortlisted'}`}>
-                {user.role === 'recruiter' ? 'Recruiter' : 'Job Seeker'}
-              </span>
+          {/* Profile Card - Only for Seeker now to avoid redundancy for Recruiters */}
+          {user.role === 'seeker' && (
+            <div className={styles.profileCard}>
+              <div className={styles.profileCover}></div>
+              <div className={styles.profileInfo}>
+                <div className={styles.avatar}>{getInitials(user.name)}</div>
+                <div className={styles.profileName}>{user.name}</div>
+                <div className={styles.profileEmail}>{user.email}</div>
+                <span className="badge badge-shortlisted">Job Seeker</span>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Quick Stats in sidebar */}
           <div className={styles.sidebarStats}>
@@ -283,59 +283,122 @@ const Dashboard = () => {
               )}
 
               {activeTab === 'profile' && (
-                <div className={styles.profileDetailsCard}>
-                  <div className={styles.profileHeader}>
-                    <h3>Professional Profile</h3>
-                    <button className="btn btn-secondary btn-small" onClick={() => navigate('/onboarding')}>Edit Profile</button>
+                <div className={styles.profileResumeView}>
+                  <div className={styles.profileMainHeader}>
+                    <div className={styles.profileHeaderText}>
+                      <h3>My Professional Profile</h3>
+                      <p>View and manage your career information</p>
+                    </div>
+                    <button className={styles.editProfileBtn} onClick={() => navigate('/onboarding')}>
+                      Edit Profile
+                    </button>
                   </div>
-                  <div className={styles.profileGrid}>
-                    <div className={styles.profileItem}>
-                      <span className={styles.label}>Phone</span>
-                      <span className={styles.value}>{user.phone || 'Not provided'}</span>
-                    </div>
-                    <div className={styles.profileItem}>
-                      <span className={styles.label}>Location</span>
-                      <span className={styles.value}>
-                        {user.address?.city ? `${user.address.city}, ${user.address.state}, ${user.address.country}` : 'Not provided'}
-                      </span>
-                    </div>
-                    <div className={styles.profileItem}>
-                      <span className={styles.label}>Experience</span>
-                      <span className={styles.value}>{user.experienceLevel || 'Not provided'}</span>
-                    </div>
-                    <div className={styles.profileItem}>
-                      <span className={styles.label}>Education</span>
-                      <span className={styles.value}>
-                        {user.education?.degree ? `${user.education.degree} from ${user.education.college} (${user.education.year})` : 'Not provided'}
-                      </span>
-                    </div>
-                    <div className={styles.profileItemFull}>
-                      <span className={styles.label}>Preferred Roles</span>
-                      <div className={styles.tags}>
-                        {user.preferredRoles?.length > 0 ? user.preferredRoles.map((r, i) => <span key={i} className={styles.tag}>{r}</span>) : 'Not provided'}
+
+                  <div className={styles.profileSectionsGrid}>
+                    {/* Section 1: Personal Information */}
+                    <div className={styles.profileSectionCard}>
+                      <div className={styles.sectionHeader}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <h4>Personal Information</h4>
+                      </div>
+                      <div className={styles.profileDataGrid}>
+                        <div className={styles.dataItem}>
+                          <span className={styles.dataLabel}>Phone</span>
+                          <span className={styles.dataValue}>{user.phone || 'Not provided'}</span>
+                        </div>
+                        <div className={styles.dataItem}>
+                          <span className={styles.dataLabel}>Email</span>
+                          <span className={styles.dataValue}>{user.email}</span>
+                        </div>
+                        <div className={styles.dataItemFull}>
+                          <span className={styles.dataLabel}>Location</span>
+                          <span className={styles.dataValue}>
+                            {user.address?.city ? `${user.address.city}, ${user.address.state}, ${user.address.country}` : 'Not provided'}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className={styles.profileItemFull}>
-                      <span className={styles.label}>Skills</span>
-                      <div className={styles.tags}>
-                        {user.skills?.length > 0 ? user.skills.map((s, i) => <span key={i} className={styles.tag}>{s}</span>) : 'Not provided'}
+
+                    {/* Section 2: Career Overview */}
+                    <div className={styles.profileSectionCard}>
+                      <div className={styles.sectionHeader}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        <h4>Career Overview</h4>
+                      </div>
+                      <div className={styles.profileDataGrid}>
+                        <div className={styles.dataItem}>
+                          <span className={styles.dataLabel}>Experience Level</span>
+                          <span className={`${styles.dataValue} ${styles.highlightText}`}>{user.experienceLevel || 'Not provided'}</span>
+                        </div>
+                        <div className={styles.dataItem}>
+                          <span className={styles.dataLabel}>Preferred Roles</span>
+                          <div className={styles.profileTags}>
+                            {user.preferredRoles?.length > 0 ? user.preferredRoles.map((r, i) => <span key={i} className={styles.profileTag}>{r}</span>) : 'Not provided'}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className={styles.profileItemFull}>
-                      <span className={styles.label}>Bio</span>
-                      <span className={styles.value}>{user.bio || 'Not provided'}</span>
+
+                    {/* Section 3: Education */}
+                    <div className={styles.profileSectionCard}>
+                      <div className={styles.sectionHeader}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        <h4>Education</h4>
+                      </div>
+                      <div className={styles.profileDataGrid}>
+                        <div className={styles.dataItemFull}>
+                          <span className={styles.dataLabel}>Primary Education</span>
+                          <span className={styles.dataValue}>
+                            {user.education?.degree ? (
+                              <div className={styles.eduBlock}>
+                                <strong className={styles.eduDegree}>{user.education.degree}</strong>
+                                <span className={styles.eduCollege}>{user.education.college}</span>
+                                <span className={styles.eduYear}>Graduation Year: {user.education.year}</span>
+                              </div>
+                            ) : 'Not provided'}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className={styles.profileItem}>
-                      <span className={styles.label}>LinkedIn</span>
-                      <span className={styles.value}>
-                        {user.linkedin ? <a href={user.linkedin} target="_blank" rel="noreferrer">View Profile</a> : 'Not provided'}
-                      </span>
+
+                    {/* Section 4: Skills & Bio */}
+                    <div className={styles.profileSectionCard}>
+                      <div className={styles.sectionHeader}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 14 4-4 4 4-4 4z"/><path d="M3.34 7a10 10 0 1 1 17.32 0"/></svg>
+                        <h4>Skills & Expertise</h4>
+                      </div>
+                      <div className={styles.profileDataGrid}>
+                        <div className={styles.dataItemFull}>
+                          <div className={styles.profileTags}>
+                            {user.skills?.length > 0 ? user.skills.map((s, i) => <span key={i} className={`${styles.profileTag} ${styles.skillTag}`}>{s}</span>) : 'Not provided'}
+                          </div>
+                        </div>
+                        <div className={styles.dataItemFull}>
+                          <span className={styles.dataLabel}>Bio / Introduction</span>
+                          <p className={styles.bioText}>{user.bio || 'Not provided'}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className={styles.profileItem}>
-                      <span className={styles.label}>Portfolio/GitHub</span>
-                      <span className={styles.value}>
-                        {user.portfolio ? <a href={user.portfolio} target="_blank" rel="noreferrer">View Portfolio</a> : 'Not provided'}
-                      </span>
+
+                    {/* Section 5: Professional Links */}
+                    <div className={`${styles.profileSectionCard} ${styles.profileItemFull}`}>
+                      <div className={styles.sectionHeader}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                        <h4>Professional Links</h4>
+                      </div>
+                      <div className={styles.profileLinksGrid}>
+                        {user.linkedin && (
+                          <a href={user.linkedin} target="_blank" rel="noreferrer" className={styles.profileLink}>
+                            <span>LinkedIn Profile</span>
+                          </a>
+                        )}
+                        {user.portfolio && (
+                          <a href={user.portfolio} target="_blank" rel="noreferrer" className={styles.profileLink}>
+                            <span>Portfolio / Website</span>
+                          </a>
+                        )}
+                        {!user.linkedin && !user.portfolio && <p className={styles.dataValue}>No links provided</p>}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -345,53 +408,109 @@ const Dashboard = () => {
 
           {/* === RECRUITER VIEW === */}
           {user.role === 'recruiter' && (
-            <>
-              <div className={styles.sectionHeader}>
-                <h3 className={styles.sectionTitle}>My Job Listings</h3>
-                <button
-                  className="btn btn-primary btn-small"
-                  onClick={() => navigate('/post-job')}
-                >
-                  + Post New Job
-                </button>
-              </div>
-
-              {myJobs.length === 0 ? (
-                <div className="empty-state">
-                  <h3>No jobs posted yet</h3>
-                  <p>Click "Post New Job" to create your first listing</p>
-                </div>
-              ) : (
-                myJobs.map((job) => (
-                  <div key={job._id} className={styles.jobRow}>
-                    <div className={styles.jobRowInfo}>
-                      <h4>{job.title}</h4>
-                      <p>{job.company} • {job.location}</p>
-                    </div>
-                    <div className={styles.jobRowActions}>
-                      <button
-                        className="btn btn-secondary btn-small"
-                        onClick={() => navigate(`/applicants/${job._id}`)}
-                      >
-                        Applicants
-                      </button>
-                      <button
-                        className="btn btn-secondary btn-small"
-                        onClick={() => navigate(`/edit-job/${job._id}`)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger btn-small"
-                        onClick={() => handleDeleteJob(job._id)}
-                      >
-                        Delete
-                      </button>
+            <div className={styles.recruiterDashboard}>
+              {/* Top Row: Profile (2 cols wide) + Stats (1 col each) */}
+              <div className={styles.recruiterTopRow}>
+                {/* Clean Profile Card */}
+                <div className={styles.recruiterProfileCard}>
+                  <div className={styles.profileCover}></div>
+                  <div className={styles.recruiterProfileInfo}>
+                    <div className={styles.largeAvatar}>{getInitials(user.name)}</div>
+                    <div className={styles.profileText}>
+                      <h2>{user.name}</h2>
+                      <p>{user.email}</p>
+                      <span className={styles.roleTag}>Recruiter Dashboard</span>
                     </div>
                   </div>
-                ))
-              )}
-            </>
+                </div>
+
+                {/* Small Stat Cards */}
+                <div className={styles.statCardsGrid}>
+                  <div className={styles.miniStatCard}>
+                    <div className={`${styles.miniIcon} ${styles.iconGreen}`}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <div className={styles.miniContent}>
+                      <span className={styles.miniLabel}>Jobs Posted</span>
+                      <span className={styles.miniValue}>{myJobs.length}</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.miniStatCard}>
+                    <div className={`${styles.miniIcon} ${styles.iconTeal}`}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div className={styles.miniContent}>
+                      <span className={styles.miniLabel}>Total Applicants</span>
+                      <span className={styles.miniValue}>
+                        {myJobs.reduce((acc, job) => acc + (job.applicantsCount || 0), 0) || '0'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Section: My Job Listings (Full Width) */}
+              <div className={styles.recruiterBottomSection}>
+                <div className={styles.jobListingsHeader}>
+                  <h3 className={styles.sectionTitle}>My Job Listings</h3>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => navigate('/post-job')}
+                    style={{ borderRadius: '100px', padding: '10px 24px', fontSize: '0.9rem' }}
+                  >
+                    + Post New Job
+                  </button>
+                </div>
+
+                <div className={styles.recruiterJobsGrid}>
+                  {myJobs.length === 0 ? (
+                    <div className={styles.emptyState}>
+                      <h3>No jobs posted yet</h3>
+                      <p>Start by creating your first job listing to find talent.</p>
+                    </div>
+                  ) : (
+                    myJobs.map((job) => (
+                      <div key={job._id} className={styles.recruiterJobCard}>
+                        <div className={styles.jobCardMain}>
+                          <div className={styles.jobCardInfo}>
+                            <h4>{job.title}</h4>
+                            <p>{job.company} • {job.location}</p>
+                            <div className={styles.jobCardBadges}>
+                              <span className={styles.pillBadge}>{job.jobType}</span>
+                              <span className={styles.pillBadge}>{job.location === 'Remote' ? 'Remote' : 'On-site'}</span>
+                              <span className={`${styles.pillBadge} ${styles.applicantBadge}`}>
+                                {job.applicantsCount || 0} Applicants
+                              </span>
+                            </div>
+                          </div>
+                          <div className={styles.jobCardActions}>
+                            <button
+                              className={styles.pillActionBtn}
+                              onClick={() => navigate(`/applicants/${job._id}`)}
+                            >
+                              Applicants
+                            </button>
+                            <button
+                              className={styles.pillActionBtn}
+                              onClick={() => navigate(`/edit-job/${job._id}`)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className={`${styles.pillActionBtn} ${styles.deleteBtn}`}
+                              onClick={() => handleDeleteJob(job._id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
           )}
         </main>
       </div>
