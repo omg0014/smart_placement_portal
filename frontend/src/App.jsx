@@ -4,8 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import DashboardLayout from './layouts/DashboardLayout';
 
 // pages
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Auth from './pages/Auth';
 import Jobs from './pages/Jobs';
 import JobDetails from './pages/JobDetails';
 import PostJob from './pages/PostJob';
@@ -25,8 +24,9 @@ function App() {
   return (
     <Routes>
       {/* ===== Public Auth Routes ===== */}
-      <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
-      <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup />} />
+      <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Auth mode="login" />} />
+      <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Auth mode="signup" />} />
+      <Route path="/auth" element={user ? <Navigate to="/dashboard" /> : <Auth />} />
 
       {/* ===== Protected Dashboard Routes ===== */}
       <Route

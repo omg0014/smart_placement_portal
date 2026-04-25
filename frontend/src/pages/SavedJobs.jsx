@@ -39,7 +39,7 @@ const SavedJobs = () => {
       ) : (
         <div className={styles.jobsGrid}>
           {savedJobs.map((job) => (
-            <JobCard key={job._id} job={job} />
+            <JobCard key={job._id} job={job} isSaved={true} />
           ))}
         </div>
       )}

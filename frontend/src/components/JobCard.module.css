@@ -1,118 +1,169 @@
-/* Job Card */
 .jobCard {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
   padding: var(--s-6);
-  cursor: pointer;
   position: relative;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  box-shadow: var(--shadow-sm);
 }
 
 .jobCard:hover {
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--primary-50);
-  transform: translateY(-6px) scale(1.01);
-  background: #ffffff;
+  border-color: var(--primary);
 }
 
-/* --- Header --- */
+.savedJobCard {
+  background: #fdfaff;
+  border-color: var(--secondary);
+}
+
+.savedBadge {
+  position: absolute;
+  top: var(--s-4);
+  right: var(--s-4);
+  background: var(--secondary);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Header */
 .cardHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: var(--s-4);
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.companyLogo {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-body);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.headerInfo {
+  flex: 1;
 }
 
 .jobTitle {
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--heading);
-  margin: 0;
-  line-height: 1.35;
+  line-height: 1.2;
 }
 
 .jobCompany {
-  color: var(--primary);
+  font-size: 0.85rem;
+  color: var(--text-light);
   font-weight: 500;
-  font-size: 0.875rem;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
-.jobTypeBadge {
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: 20px;
-  font-size: 0.68rem;
+/* Tags */
+.tagsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: capitalize;
-  background: var(--primary-light);
-  color: var(--primary-dark);
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
-/* --- Location & Salary Row --- */
+.typeBadge {
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+}
+
+.skillBadge {
+  background: var(--bg-body);
+  color: var(--text-light);
+  border: 1px solid var(--border);
+}
+
+/* Details */
 .jobDetails {
   display: flex;
-  align-items: center;
-  gap: var(--s-5);
-  margin-top: var(--s-3);
   flex-wrap: wrap;
+  gap: var(--s-5);
+  padding-top: var(--s-2);
 }
 
-/* shared icon style */
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
 .icon {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
-.jobLocation {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.82rem;
-  color: #64748b;
-  font-weight: 400;
+.salaryText {
+  color: var(--success);
+  font-weight: 700;
 }
 
-.jobSalary {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--primary-dark);
-  background: var(--primary-light);
-  padding: 4px 12px;
-  border-radius: var(--radius);
-}
-
-/* --- Footer --- */
+/* Footer */
 .cardFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: var(--s-5);
-  padding-top: var(--s-5);
+  margin-top: auto;
+  padding-top: var(--s-4);
   border-top: 1px solid var(--border-light);
 }
 
 .postedDate {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  .cardHeader {
-    flex-direction: column;
-    gap: 8px;
-  }
+.viewBtn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
 
-  .jobDetails {
-    gap: var(--s-3);
-  }
+.viewBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.viewBtn:active {
+  transform: scale(0.95);
 }

@@ -1,118 +1,105 @@
-/* Applications Page */
 .applicationsPage {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 var(--s-6) var(--s-10);
+  padding: 0 var(--s-6) var(--s-12);
 }
 
 .appList {
   display: flex;
   flex-direction: column;
-  gap: var(--s-3);
+  gap: var(--s-4);
+  margin-top: var(--s-8);
 }
 
-/* Seeker application card */
 .appCard {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--s-5) var(--s-6);
+  border-radius: var(--radius);
+  padding: var(--s-6) var(--s-8);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  transition: all var(--ease);
-}
-.appCard:hover {
+  transition: var(--transition);
   box-shadow: var(--shadow-sm);
-  border-color: #cbd5e1;
+  position: relative;
+  overflow: hidden;
+}
+
+.appCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+  border-color: var(--primary);
+}
+
+.appCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--border);
+  transition: var(--transition);
+}
+
+.appCard:hover::before {
+  background: var(--primary);
 }
 
 .appInfo h3 {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--heading);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
+
 .appInfo p {
-  color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 500;
 }
 
 .appMeta {
   display: flex;
-  align-items: center;
-  gap: var(--s-4);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
 }
 
 .dateText {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-/* Recruiter applicant cards */
-.applicantCard {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--s-4) var(--s-6);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  transition: all var(--ease);
-}
-.applicantCard:hover {
-  box-shadow: var(--shadow-sm);
+/* Status Badges specifically for this page */
+:global(.badge-pending) {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid #FDE68A !important;
 }
 
-.applicantInfo {
-  flex: 1;
-  min-width: 200px;
-}
-.applicantInfo h4 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--heading);
-  margin-bottom: 2px;
-}
-.applicantInfo p {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+:global(.badge-accepted), :global(.badge-shortlisted) {
+  background: #D1FAE5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
 }
 
-.statusSelect {
-  padding: 7px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 0.8rem;
-  color: var(--text);
-  background: var(--bg-input);
-  cursor: pointer;
-  transition: all var(--ease);
-}
-.statusSelect:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: var(--shadow-focus);
+:global(.badge-rejected) {
+  background: #FEE2E2 !important;
+  color: #991B1B !important;
+  border: 1px solid #FECACA !important;
 }
 
-.resumeLink {
-  font-size: 0.8rem;
-  color: var(--primary);
-  font-weight: 500;
-  margin-top: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.resumeLink:hover { color: var(--primary-hover); }
-
-@media (max-width: 768px) {
-  .applicationsPage { padding: var(--s-4); }
-  .appCard, .applicantCard { padding: var(--s-4); }
-  .appMeta { width: 100%; justify-content: space-between; }
+@media (max-width: 600px) {
+  .appCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-4);
+  }
+  .appMeta {
+    align-items: flex-start;
+    width: 100%;
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--border-light);
+  }
 }

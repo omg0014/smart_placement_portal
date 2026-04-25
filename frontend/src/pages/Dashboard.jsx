@@ -111,12 +111,15 @@ const Dashboard = () => {
         <aside className={styles.sidebar}>
           {/* Profile Card */}
           <div className={styles.profileCard}>
-            <div className={styles.avatar}>{getInitials(user.name)}</div>
-            <div className={styles.profileName}>{user.name}</div>
-            <div className={styles.profileEmail}>{user.email}</div>
-            <span className={`badge badge-${user.role === 'recruiter' ? 'reviewed' : 'shortlisted'}`}>
-              {user.role === 'recruiter' ? 'Recruiter' : 'Job Seeker'}
-            </span>
+            <div className={styles.profileCover}></div>
+            <div className={styles.profileInfo}>
+              <div className={styles.avatar}>{getInitials(user.name)}</div>
+              <div className={styles.profileName}>{user.name}</div>
+              <div className={styles.profileEmail}>{user.email}</div>
+              <span className={`badge badge-${user.role === 'recruiter' ? 'reviewed' : 'shortlisted'}`}>
+                {user.role === 'recruiter' ? 'Recruiter' : 'Job Seeker'}
+              </span>
+            </div>
           </div>
 
           {/* Quick Stats in sidebar */}
@@ -124,21 +127,36 @@ const Dashboard = () => {
             {user.role === 'seeker' && (
               <>
                 <div className={styles.sidebarStatItem}>
-                  <span className={styles.sidebarStatLabel}>Applied</span>
-                  <span className={styles.sidebarStatValue}>{applications.length}</span>
+                  <div className={styles.statIconWrapper} style={{background: 'rgba(79, 70, 229, 0.1)', color: 'var(--primary)'}}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                  </div>
+                  <div className={styles.statText}>
+                    <span className={styles.sidebarStatLabel}>Applied</span>
+                    <span className={styles.sidebarStatValue}>{applications.length}</span>
+                  </div>
                 </div>
                 <div className={styles.sidebarStatItem}>
-                  <span className={styles.sidebarStatLabel}>Pending</span>
-                  <span className={styles.sidebarStatValue}>{pendingCount}</span>
+                  <div className={styles.statIconWrapper} style={{background: 'rgba(245, 158, 11, 0.1)', color: 'var(--warning)'}}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <div className={styles.statText}>
+                    <span className={styles.sidebarStatLabel}>Pending</span>
+                    <span className={styles.sidebarStatValue}>{pendingCount}</span>
+                  </div>
                 </div>
                 <div className={styles.sidebarStatItem}>
-                  <span className={styles.sidebarStatLabel}>Accepted</span>
-                  <span className={styles.sidebarStatValue}>{acceptedCount}</span>
+                  <div className={styles.statIconWrapper} style={{background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)'}}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                  <div className={styles.statText}>
+                    <span className={styles.sidebarStatLabel}>Accepted</span>
+                    <span className={styles.sidebarStatValue}>{acceptedCount}</span>
+                  </div>
                 </div>
                 <div className={styles.profileCompleteness}>
                   <div className={styles.completenessHeader}>
                     <span>Profile Completeness</span>
-                    <span>{score}%</span>
+                    <span className={styles.percentage}>{score}%</span>
                   </div>
                   <div className={styles.progressBar}>
                     <div className={styles.progressFill} style={{ width: `${score}%` }}></div>
@@ -148,8 +166,13 @@ const Dashboard = () => {
             )}
             {user.role === 'recruiter' && (
               <div className={styles.sidebarStatItem}>
-                <span className={styles.sidebarStatLabel}>Jobs Posted</span>
-                <span className={styles.sidebarStatValue}>{myJobs.length}</span>
+                 <div className={styles.statIconWrapper} style={{background: 'rgba(79, 70, 229, 0.1)', color: 'var(--primary)'}}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  </div>
+                <div className={styles.statText}>
+                  <span className={styles.sidebarStatLabel}>Jobs Posted</span>
+                  <span className={styles.sidebarStatValue}>{myJobs.length}</span>
+                </div>
               </div>
             )}
           </div>
@@ -179,42 +202,60 @@ const Dashboard = () => {
                 <>
                   {/* Resume Upload */}
                   <div className={styles.resumeSection}>
-                    <h3>📄 My Resume</h3>
-                    <div className={styles.resumeUpload}>
-                      <input
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        onChange={(e) => setResumeFile(e.target.files[0])}
-                      />
-                      <button className="btn btn-primary btn-small" onClick={handleResumeUpload}>
-                        Upload
-                      </button>
+                    <div className={styles.sectionIcon}>📄</div>
+                    <div className={styles.resumeContent}>
+                      <h3>My Resume</h3>
+                      <div className={styles.resumeUpload}>
+                        <label className={styles.customFileUpload}>
+                          <input
+                            type="file"
+                            accept=".pdf,.doc,.docx"
+                            onChange={(e) => setResumeFile(e.target.files[0])}
+                          />
+                          <span>{resumeFile ? resumeFile.name : 'Choose file...'}</span>
+                        </label>
+                        <button className="btn btn-primary btn-small" onClick={handleResumeUpload} disabled={!resumeFile}>
+                          Upload
+                        </button>
+                      </div>
+                      {resumeName && (
+                        <p className={styles.currentResume}>✓ Current: {resumeName}</p>
+                      )}
+                      {uploadMsg && (
+                        <p className={styles.currentResume}>{uploadMsg}</p>
+                      )}
                     </div>
-                    {resumeName && (
-                      <p className={styles.currentResume}>✓ Current: {resumeName}</p>
-                    )}
-                    {uploadMsg && (
-                      <p className={styles.currentResume}>{uploadMsg}</p>
-                    )}
                   </div>
 
                   {/* Stats Row */}
                   <div className={styles.statsRow}>
-                    <div className={styles.statCard}>
-                      <div className={styles.statNumber}>{applications.length}</div>
-                      <div className={styles.statLabel}>Total Applied</div>
+                    <div className={`${styles.statCard} ${styles.statApplied}`}>
+                      <div className={styles.statIcon}>📝</div>
+                      <div className={styles.statInfo}>
+                        <div className={styles.statNumber}>{applications.length}</div>
+                        <div className={styles.statLabel}>Total Applied</div>
+                      </div>
                     </div>
-                    <div className={styles.statCard}>
-                      <div className={styles.statNumber}>{pendingCount}</div>
-                      <div className={styles.statLabel}>Pending</div>
+                    <div className={`${styles.statCard} ${styles.statPending}`}>
+                      <div className={styles.statIcon}>⏳</div>
+                      <div className={styles.statInfo}>
+                        <div className={styles.statNumber}>{pendingCount}</div>
+                        <div className={styles.statLabel}>Pending</div>
+                      </div>
                     </div>
-                    <div className={styles.statCard}>
-                      <div className={styles.statNumber}>{reviewedCount}</div>
-                      <div className={styles.statLabel}>Reviewed</div>
+                    <div className={`${styles.statCard} ${styles.statReviewed}`}>
+                      <div className={styles.statIcon}>👀</div>
+                      <div className={styles.statInfo}>
+                        <div className={styles.statNumber}>{reviewedCount}</div>
+                        <div className={styles.statLabel}>Reviewed</div>
+                      </div>
                     </div>
-                    <div className={styles.statCard}>
-                      <div className={styles.statNumber}>{acceptedCount}</div>
-                      <div className={styles.statLabel}>Accepted</div>
+                    <div className={`${styles.statCard} ${styles.statAccepted}`}>
+                      <div className={styles.statIcon}>🎉</div>
+                      <div className={styles.statInfo}>
+                        <div className={styles.statNumber}>{acceptedCount}</div>
+                        <div className={styles.statLabel}>Accepted</div>
+                      </div>
                     </div>
                   </div>
 

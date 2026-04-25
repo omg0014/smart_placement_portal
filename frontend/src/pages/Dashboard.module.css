@@ -1,59 +1,71 @@
 /* Dashboard — Sidebar + Main Content Grid */
 .dashboardPage {
-  max-width: 1140px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--s-6) var(--s-10);
+  padding: 0 var(--s-6) var(--s-12);
 }
 
 .dashboardLayout {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: var(--s-6);
-  margin-top: var(--s-6);
+  grid-template-columns: 300px 1fr;
+  gap: var(--s-8);
+  margin-top: var(--s-8);
 }
 
 /* --- Sidebar --- */
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
+  gap: var(--s-6);
 }
 
 .profileCard {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: var(--s-8) var(--s-6);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.profileCover {
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.profileInfo {
+  padding: 0 var(--s-6) var(--s-8);
   text-align: center;
-  box-shadow: var(--shadow-xs);
+  margin-top: -36px;
 }
 
 .avatar {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #60a5fa, #3b82f6);
-  color: #fff;
+  background: var(--bg-card);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   margin: 0 auto var(--s-4);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  box-shadow: var(--shadow-md);
+  border: 4px solid var(--bg-card);
 }
 
 .profileName {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--heading);
   margin-bottom: 2px;
 }
 
 .profileEmail {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-bottom: var(--s-3);
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: var(--s-4);
   word-break: break-all;
 }
 
@@ -63,22 +75,39 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--s-4);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-sm);
 }
 
 .sidebarStatItem {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px var(--s-3);
-  border-bottom: 1px solid var(--border-light);
+  gap: var(--s-3);
+  padding: 12px;
+  border-radius: var(--radius);
+  transition: var(--transition);
 }
-.sidebarStatItem:last-child {
-  border-bottom: none;
+
+.sidebarStatItem:hover {
+  background: var(--bg-body);
+}
+
+.statIconWrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statText {
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebarStatLabel {
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   color: var(--text-light);
   font-weight: 500;
 }
@@ -86,7 +115,42 @@
 .sidebarStatValue {
   font-size: 1rem;
   font-weight: 700;
+  color: var(--heading);
+}
+
+/* Completeness */
+.profileCompleteness {
+  margin-top: 1rem;
+  padding: 12px;
+  border-top: 1px solid var(--border-light);
+}
+
+.completenessHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.percentage {
   color: var(--primary);
+  font-weight: 700;
+}
+
+.progressBar {
+  height: 6px;
+  background-color: var(--bg-section);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  border-radius: 10px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* --- Main Content --- */
@@ -94,169 +158,24 @@
   min-width: 0;
 }
 
-/* Stats Row */
-.statsRow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--s-4);
-  margin-bottom: var(--s-8);
-}
-
-.statCard {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--s-6) var(--s-4);
-  text-align: center;
-  box-shadow: var(--shadow-xs);
-  transition: all var(--ease);
-}
-.statCard:hover {
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
-}
-
-.statNumber {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary);
-  line-height: 1.1;
-}
-
-.statLabel {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-/* Section Header */
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--s-5);
-}
-
-.sectionTitle {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--heading);
-}
-
-/* Job Rows */
-.jobRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--s-5) var(--s-6);
-  margin-bottom: var(--s-3);
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  transition: all var(--ease);
-}
-.jobRow:hover {
-  box-shadow: var(--shadow-sm);
-  border-color: #cbd5e1;
-}
-
-.jobRowInfo h4 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--heading);
-  margin-bottom: 3px;
-}
-.jobRowInfo p {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.jobRowActions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* Resume Section */
-.resumeSection {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--s-6);
-  margin-bottom: var(--s-8);
-  box-shadow: var(--shadow-xs);
-}
-
-.resumeSection h3 {
-  margin-bottom: var(--s-4);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--heading);
-}
-
-.resumeUpload {
-  display: flex;
-  align-items: center;
-  gap: var(--s-3);
-  flex-wrap: wrap;
-}
-
-.resumeUpload input[type="file"] {
-  font-family: var(--font);
-  font-size: 0.82rem;
-  color: var(--text-light);
-}
-
-.currentResume {
-  font-size: 0.82rem;
-  color: var(--green);
-  margin-top: 8px;
-  font-weight: 500;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .dashboardLayout {
-    grid-template-columns: 1fr;
-  }
-  .sidebar {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .profileCard, .sidebarStats {
-    flex: 1;
-    min-width: 200px;
-  }
-  .statsRow {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .jobRow { padding: var(--s-4); }
-  .jobRowActions { width: 100%; }
-}
-
 /* Tabs */
 .tabs {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 2rem;
+  margin-bottom: var(--s-8);
   border-bottom: 1px solid var(--border);
 }
 
 .tab {
   background: none;
   border: none;
-  color: var(--text-muted);
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
+  color: var(--text-light);
+  padding: 0.75rem 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 
 .tab:hover {
@@ -268,95 +187,259 @@
   border-bottom-color: var(--primary);
 }
 
-/* Profile Details */
-.profileDetailsCard {
-  background-color: var(--bg-card);
-  border-radius: 12px;
+/* Resume Section */
+.resumeSection {
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  padding: 2rem;
+  border-radius: var(--radius-lg);
+  padding: var(--s-6) var(--s-8);
+  margin-bottom: var(--s-8);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-6);
 }
 
-.profileHeader {
+.sectionIcon {
+  font-size: 2rem;
+  background: var(--bg-body);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.resumeContent {
+  flex: 1;
+}
+
+.resumeContent h3 {
+  margin-bottom: var(--s-4);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.resumeUpload {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-bottom: var(--s-2);
+}
+
+.customFileUpload {
+  flex: 1;
+  padding: 10px 16px;
+  background: var(--bg-body);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.customFileUpload:hover {
+  border-color: var(--primary);
+  background: #EEF2FF;
+}
+
+.customFileUpload input {
+  display: none;
+}
+
+.currentResume {
+  font-size: 0.8rem;
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* Stats Row */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s-6);
+  margin-bottom: var(--s-10);
+}
+
+.statCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--s-6);
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.statIcon {
+  font-size: 1.75rem;
+  width: 50px;
+  height: 50px;
+  background: var(--bg-body);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.statCard:hover .statIcon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.statNumber {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* Stats Gradients */
+.statApplied { border-bottom: 4px solid var(--primary); }
+.statPending { border-bottom: 4px solid var(--warning); }
+.statReviewed { border-bottom: 4px solid var(--info); }
+.statAccepted { border-bottom: 4px solid var(--success); }
+
+/* Section Title */
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: var(--s-6);
+}
+
+/* Job Rows */
+.jobRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s-5) var(--s-8);
+  margin-bottom: var(--s-4);
+  transition: var(--transition);
+}
+
+.jobRow:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.jobRowInfo h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 4px;
+}
+
+.jobRowInfo p {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.jobRowActions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Profile Details */
+.profileDetailsCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--s-8);
+  box-shadow: var(--shadow-sm);
 }
 
 .profileGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.profileItem {
-  display: flex;
-  flex-direction: column;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-8);
 }
 
 .profileItemFull {
   grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
 }
 
 .label {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
 }
 
 .value {
   font-size: 1rem;
   color: var(--heading);
-}
-
-.value a {
-  color: var(--primary);
-  text-decoration: none;
+  font-weight: 500;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .tag {
-  background-color: rgba(99, 102, 241, 0.1);
+  background: var(--bg-body);
   color: var(--primary);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
+  padding: 6px 14px;
+  border-radius: 100px;
   font-size: 0.85rem;
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-weight: 600;
+  border: 1px solid var(--border);
 }
 
-/* Completeness */
-.profileCompleteness {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
+/* Responsive */
+@media (max-width: 992px) {
+  .dashboardLayout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-.completenessHeader {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
-}
-
-.progressBar {
-  height: 8px;
-  background-color: var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  background-color: var(--primary);
-  transition: width 0.5s ease-in-out;
+@media (max-width: 768px) {
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+  .jobRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-4);
+  }
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
 }
