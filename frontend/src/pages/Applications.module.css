@@ -1,302 +1,535 @@
 .applicationsPage {
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--s-4) var(--s-12);
-  animation: fadeIn 0.8s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  padding: 40px 24px;
 }
 
 .backBtn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   background: white;
   border: 1px solid #e2e8f0;
   color: #64748b;
   padding: 10px 20px;
-  border-radius: var(--radius-pill);
+  border-radius: 12px;
   font-weight: 700;
-  font-size: 0.9rem;
   cursor: pointer;
+  margin-bottom: 24px;
   transition: all 0.3s ease;
-  margin-bottom: var(--s-6);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
 .backBtn:hover {
-  background: #f8fafc;
   border-color: #10b981;
   color: #10b981;
   transform: translateX(-4px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
 }
 
-.applicationsPage {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: var(--s-8) var(--s-4) var(--s-12);
-  animation: fadeIn 0.8s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.applicantList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-8);
-  margin-top: var(--s-8);
+.applicantGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .premiumApplicantCard {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: var(--s-8);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
   position: relative;
-  overflow: hidden;
+  cursor: pointer;
 }
 
 .premiumApplicantCard:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
 }
 
-.premiumApplicantCard::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #10b981, #3b82f6);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.recruiterAvatarCircle {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1e293b;
 }
 
-.premiumApplicantCard:hover::after {
-  opacity: 1;
+.applicantTitle h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
 }
 
-.cardTop {
+.applicantTitle p {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.statusPill {
+  padding: 3px 8px;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.pending { color: #d97706; }
+.reviewed { color: #059669; }
+.shortlisted { color: #4f46e5; }
+.accepted { color: #10b981; }
+.rejected { color: #ef4444; }
+
+/* Shade Definitions */
+.shadeLavender { background-color: #eef2ff !important; }
+.shadeMint { background-color: #f0fdf4 !important; }
+.shadePink { background-color: #fdf2f8 !important; }
+.shadeIndigo { background-color: #f5f3ff !important; }
+.shadePeach { background-color: #fff7ed !important; }
+.shadeGray { background-color: #f8fafc !important; }
+
+.cardHeaderArea {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--s-8);
-  padding-bottom: var(--s-6);
-  border-bottom: 1px solid #f8fafc;
 }
 
 .applicantMain {
   display: flex;
   align-items: center;
-  gap: var(--s-6);
+  gap: 12px;
 }
 
-.applicantAvatar {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-  color: #059669;
-  border-radius: 20px;
+.statusPillArea {
+  display: flex;
+  align-items: center;
+}
+
+.applicantDetailSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.infoRow {
+  display: flex;
+  gap: 12px;
+}
+
+.infoLabel {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.infoValue {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.skillTag {
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.applicantBioBrief {
+  display: none; /* Hide in small card, it's in the modal */
+}
+
+.recruiterCardFooter {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.viewDetailsBtn {
+  flex: 1.2;
+  padding: 8px;
+  font-size: 0.75rem;
+  border-radius: 8px;
+}
+
+.statusSelect {
+  flex: 1;
+  padding: 8px;
+  font-size: 0.75rem;
+  border-radius: 8px;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 800;
-  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.1);
+  z-index: 2000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.applicantTitle h4 {
+.modalContent {
+  background: white;
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  border-radius: 32px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.closeModalBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: none;
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeModalBtn:hover {
+  background: #e2e8f0;
+  transform: rotate(90deg);
+}
+
+.modalHeader {
+  padding: 40px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modalAvatar {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
   font-weight: 800;
   color: #1e293b;
-  margin-bottom: 4px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
-.applicantTitle p {
+.modalHeaderText h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.modalHeaderText p {
+  margin: 4px 0 0;
   color: #64748b;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.cardContent {
+.modalBody {
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: var(--s-8);
+  gap: 32px;
 }
 
-.applicantDetailsGrid {
+.modalSection h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modalBio {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+.modalGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--s-8);
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
 
-.detailItem {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.detailLabel {
+.modalInfoBlock label {
+  display: block;
   font-size: 0.75rem;
   font-weight: 800;
   color: #94a3b8;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  margin-bottom: 4px;
 }
 
-.detailValue {
-  font-size: 1.1rem;
-  color: #334155;
+.modalInfoBlock p {
+  margin: 0;
   font-weight: 700;
+  color: #1e293b;
 }
 
-.skillsSection {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.subInfo {
+  font-size: 0.85rem;
+  color: #64748b !important;
+  font-weight: 500 !important;
 }
 
-.applicantSkills {
+.modalSkillsList {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-}
-
-.skillChip {
-  padding: 6px 16px;
-  background: #f1f5f9;
-  color: #475569;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.skillChip:hover {
-  background: #e2e8f0;
-  color: #1e293b;
-  transform: scale(1.05);
-}
-
-.bioSection {
-  background: #fdfdfd;
-  padding: var(--s-6);
-  border-radius: 20px;
-  border: 1px solid #f1f5f9;
-  position: relative;
-}
-
-.bioSection::before {
-  content: '"';
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 3rem;
-  color: #f1f5f9;
-  font-family: serif;
-  line-height: 1;
-}
-
-.bioSection p {
-  font-size: 1rem;
-  font-style: italic;
-  color: #64748b;
-  line-height: 1.6;
-  position: relative;
-  z-index: 1;
-}
-
-.cardFooter {
-  margin-top: var(--s-8);
-  padding-top: var(--s-8);
-  border-top: 1px solid #f8fafc;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footerLinks {
-  display: flex;
-  gap: var(--s-4);
-}
-
-.actionLink {
-  padding: 10px 20px;
-  background: white;
-  color: #64748b;
-  border-radius: var(--radius-pill);
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 1px solid #e2e8f0;
-  display: flex;
-  align-items: center;
   gap: 8px;
 }
 
-.actionLink:hover {
+.modalSkillTag {
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.modalLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.modalLinks a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.modalResumeBtn {
+  background: #0f172a !important;
+  color: white !important;
+  padding: 10px 24px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+.modalFooter {
+  padding: 32px 40px;
   background: #f8fafc;
-  border-color: #10b981;
-  color: #10b981;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+  border-top: 1px solid #e2e8f0;
 }
 
-.modernSelect {
-  padding: 12px 24px;
-  border-radius: 16px;
-  border: 2px solid #f1f5f9;
-  background: white;
+.modalStatusArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalStatusArea label {
   font-weight: 800;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.modalStatusSelect {
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-weight: 700;
   color: #1e293b;
-  cursor: pointer;
-  transition: all 0.3s ease;
   outline: none;
-  min-width: 160px;
+  cursor: pointer;
 }
 
-.modernSelect:hover {
-  border-color: #cbd5e1;
-}
-
-.modernSelect:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
-}
-
-@media (max-width: 768px) {
-  .cardTop {
-    flex-direction: column;
-    gap: var(--s-4);
-  }
-  .applicantDetailsGrid {
-    grid-template-columns: 1fr;
-  }
-  .cardFooter {
-    flex-direction: column;
-    gap: var(--s-8);
-    align-items: flex-start;
-  }
-  .statusUpdate, .modernSelect {
-    width: 100%;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .applicantGrid { grid-template-columns: 1fr; }
+  .modalGrid { grid-template-columns: 1fr; }
+  .modalHeader { flex-direction: column; align-items: flex-start; padding: 30px; }
+  .modalBody { padding: 30px; }
+}
+
+/* Seeker-Specific "My Applications" Styles */
+.seekerAppGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.seekerAppCard {
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.seekerAppCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.companyAvatar {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.jobTitleArea h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.companyName {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.statusBadge {
+  margin-left: auto;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* Status Badge Colors */
+.statusBadge.pending { color: #d97706; }
+.statusBadge.reviewed { color: #059669; }
+.statusBadge.shortlisted { color: #4f46e5; }
+.statusBadge.accepted { color: #10b981; }
+.statusBadge.rejected { color: #ef4444; }
+
+.cardBody {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.infoLabel {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.infoValue {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.cardFooter {
+  margin-top: auto;
+}
+
+.cardFooter .viewDetailsBtn {
+  width: 100%;
+  padding: 12px;
+  background: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.cardFooter .viewDetailsBtn:hover {
+  background: #000;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .seekerAppGrid { grid-template-columns: 1fr; }
+  .cardHeader { flex-direction: column; align-items: flex-start; }
+  .statusBadge { margin-left: 0; margin-top: 12px; }
 }

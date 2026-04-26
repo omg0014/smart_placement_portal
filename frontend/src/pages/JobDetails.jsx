@@ -21,13 +21,11 @@ const JobDetails = () => {
         const res = await api.get(`/jobs/${id}`);
         setJob(res.data.job);
 
-        // check if user has already saved this job
         if (user && user.role === 'seeker') {
           const meRes = await api.get('/auth/me');
           const savedIds = meRes.data.user.savedJobs || [];
           setSaved(savedIds.includes(id));
 
-          // check if already applied
           const appRes = await api.get('/applications');
           const hasApplied = appRes.data.applications.some(
             (app) => app.job?._id === id
@@ -77,72 +75,117 @@ const JobDetails = () => {
 
   return (
     <div className={styles.detailsPage}>
-      <span className={styles.backLink} onClick={() => navigate('/jobs')}>
-        ← Back to Jobs
-      </span>
+      <button className={styles.backButton} onClick={() => navigate('/jobs')}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to Jobs
+      </button>
 
-      <div className={styles.detailCard}>
-        <div className={styles.detailHeader}>
-          <h1>{job.title}</h1>
-          <p className={styles.company}>{job.company}</p>
+      <div className={styles.premiumDetailCard}>
+        {/* Banner Section */}
+        <div className={styles.detailBanner}>
+          <div className={styles.bannerContent}>
+            <div className={styles.companyInitial}>{job.company[0]}</div>
+            <div className={styles.headerInfo}>
+              <h1>{job.title}</h1>
+              <div className={styles.companyPill}>{job.company}</div>
+            </div>
+          </div>
+          {user && user.role === 'seeker' && (
+             <button className={`${styles.saveIconBtn} ${saved ? styles.saved : ''}`} onClick={handleSave}>
+               {saved ? '❤️' : '🤍'}
+             </button>
+          )}
+        </div>
 
-          <div className={styles.metaRow}>
-            <span className={styles.metaItem}>📍 {job.location}</span>
-            <span className={styles.metaItem}>💰 {job.salary}</span>
-            <span className={styles.metaItem}>📋 {job.jobType}</span>
-            <span className={styles.metaItem}>📅 {formatDate(job.createdAt)}</span>
+        {/* Feature Grid */}
+        <div className={styles.featureGrid}>
+          <div className={styles.featureCard}>
+            <div className={styles.fIcon}>📍</div>
+            <div className={styles.fText}>
+               <span className={styles.fLabel}>Location</span>
+               <span className={styles.fValue}>{job.location}</span>
+            </div>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.fIcon}>💰</div>
+            <div className={styles.fText}>
+               <span className={styles.fLabel}>Annual Package</span>
+               <span className={styles.fValue}>₹ {job.salary}</span>
+            </div>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.fIcon}>💼</div>
+            <div className={styles.fText}>
+               <span className={styles.fLabel}>Job Type</span>
+               <span className={styles.fValue}>{job.jobType}</span>
+            </div>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.fIcon}>🗓️</div>
+            <div className={styles.fText}>
+               <span className={styles.fLabel}>Posted On</span>
+               <span className={styles.fValue}>{formatDate(job.createdAt)}</span>
+            </div>
           </div>
         </div>
 
-        <h3 className={styles.sectionTitle}>Description</h3>
-        <p className={styles.description}>{job.description}</p>
-
-        {job.requirements && (
-          <>
-            <h3 className={styles.sectionTitle}>Requirements</h3>
-            <p className={styles.description}>{job.requirements}</p>
-          </>
-        )}
-
-        {job.postedBy && (
-          <p className={styles.postedBy}>
-            Posted by: {job.postedBy.name} ({job.postedBy.email})
-          </p>
-        )}
-
-        {message && (
-          <div className="success-message" style={{ marginTop: '16px' }}>
-            {message}
+        <div className={styles.mainDescriptionSection}>
+          <div className={styles.descriptionBlock}>
+            <h3 className={styles.premiumHeading}>Description</h3>
+            <p className={styles.premiumText}>{job.description}</p>
           </div>
-        )}
 
-        {/* action buttons for seekers */}
-        {user && user.role === 'seeker' && (
-          <div className={styles.actions}>
-            <button
-              className="btn btn-primary"
-              onClick={handleApply}
-              disabled={applied}
-            >
-              {applied ? '✓ Applied' : 'Apply Now'}
-            </button>
-            <button className="btn btn-secondary" onClick={handleSave}>
-              {saved ? '♥ Saved' : '♡ Save Job'}
-            </button>
-          </div>
-        )}
+          {job.requirements && (
+            <div className={styles.descriptionBlock}>
+              <h3 className={styles.premiumHeading}>Requirements</h3>
+              <div className={styles.requirementsList}>
+                {job.requirements.split('\n').map((line, idx) => (
+                  <div key={idx} className={styles.reqLine}>
+                    <span className={styles.bullet}>✦</span>
+                    <p>{line}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
 
-        {/* recruiter can edit if they own this job */}
-        {user && user.role === 'recruiter' && job.postedBy?._id === user.id && (
-          <div className={styles.actions}>
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate(`/edit-job/${job._id}`)}
-            >
-              Edit Job
-            </button>
-          </div>
-        )}
+        <div className={styles.footerInfo}>
+           <div className={styles.postedByCard}>
+              <div className={styles.pIcon}>👤</div>
+              <div className={styles.pContent}>
+                 <span>Posted by hiring manager</span>
+                 <strong>{job.postedBy?.name}</strong>
+              </div>
+           </div>
+
+           {message && (
+             <div className={styles.inlineMessage}>
+                {message}
+             </div>
+           )}
+
+           <div className={styles.actionBlock}>
+              {user && user.role === 'seeker' && (
+                <button
+                  className={`${styles.mainApplyBtn} ${applied ? styles.appliedBtn : ''}`}
+                  onClick={handleApply}
+                  disabled={applied}
+                >
+                  {applied ? '✓ Already Applied' : 'Submit Application'}
+                </button>
+              )}
+
+              {user && user.role === 'recruiter' && job.postedBy?._id === user.id && (
+                <button
+                  className={styles.mainApplyBtn}
+                  onClick={() => navigate(`/edit-job/${job._id}`)}
+                >
+                  Edit Job Listing
+                </button>
+              )}
+           </div>
+        </div>
       </div>
     </div>
   );
