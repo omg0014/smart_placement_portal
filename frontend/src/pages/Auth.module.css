@@ -426,5 +426,36 @@
 @media (max-width: 640px) {
   .formSection {
     padding: 24px;
+    width: 100%;
+  }
+  
+  .header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .otpInputs {
+    gap: 8px;
+  }
+  
+  .otpBox {
+    width: 42px !important;
+    height: 52px;
+    font-size: 1.25rem !important;
+  }
+
+  .formWrapper {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .otpInputs {
+    gap: 4px;
+  }
+  
+  .otpBox {
+    width: 38px !important;
+    height: 48px;
+    font-size: 1.1rem !important;
   }
 }

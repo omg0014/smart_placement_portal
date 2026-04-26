@@ -857,76 +857,130 @@
 }
 
 @media (max-width: 1024px) {
-  .recruiterTopRow {
+  .dashboardLayout {
     grid-template-columns: 1fr;
   }
+  
+  .profileSectionsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recruiterTopRow {
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+  }
+  
   .statCardsGrid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
   }
 }
 
 @media (max-width: 768px) {
+  .dashboardPage {
+    padding: 0 var(--s-4) var(--s-6);
+    overflow-x: hidden;
+  }
+
+  .recruiterTopRow {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .recruiterProfileCard {
+    width: 100%;
+  }
+
+  .recruiterProfileInfo {
+    flex-direction: column;
+    text-align: center;
+    margin-top: -45px;
+    padding: 0 var(--s-4) var(--s-6);
+  }
+
+  .largeAvatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+
+  .profileText {
+    margin-top: 15px;
+  }
+
   .jobCardMain {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--s-8);
+    gap: var(--s-6);
   }
+
   .jobCardActions {
     width: 100%;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
+
   .pillActionBtn {
-    flex: 1;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.8rem;
     text-align: center;
   }
+
+  .resumeSection {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--s-6);
+  }
+
+  .resumeUpload {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .customFileUpload, .uploadResumeBtn, .viewResumeActionBtn {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .profileMainHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-4);
+  }
+
+  .editProfileBtn {
+    width: 100%;
+  }
+
+  .profileLinksGrid {
+    flex-direction: column;
+  }
+
+  .profileLink {
+    width: 100%;
+  }
+
+  .jobRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 }
 
-/* Shared components */
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 40px 0 20px;
-}
-
-.sectionTitle {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: #0f172a;
-  letter-spacing: -0.02em;
-}
-
-.jobRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  border-radius: 16px;
-  padding: 20px 24px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  transition: all 0.2s ease;
-  border: 1px solid rgba(0,0,0,0.02);
-}
-
-.jobRow:hover {
-  transform: translateX(6px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-  border-color: var(--primary);
-}
-
-.jobRowInfo h4 {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 4px;
-}
-
-.jobRowInfo p {
-  font-size: 0.9rem;
-  color: #64748b;
-  font-weight: 600;
+@media (max-width: 480px) {
+  .statCardsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .jobCardActions {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Animations */
@@ -935,30 +989,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 1024px) {
-  .recruiterTopRow {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 992px) {
-  .dashboardLayout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .jobCardMain {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--s-6);
-  }
-  .jobCardActions {
-    width: 100%;
-    justify-content: space-between;
-  }
-  .pillActionBtn {
-    flex: 1;
-    text-align: center;
-  }
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
