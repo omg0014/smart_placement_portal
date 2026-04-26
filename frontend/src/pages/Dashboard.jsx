@@ -167,7 +167,8 @@ const Dashboard = () => {
             {/* Recruiter sidebar is kept empty or minimal for now as we have a rich top row */}
             {user.role === 'recruiter' && (
                <div className={styles.sidebarNote}>
-                 <p>Managing your recruitment pipeline</p>
+                 <p><strong>Recruitment Command Center</strong></p>
+                 <p style={{fontSize: '0.75rem', marginTop: '8px', opacity: 0.8}}>Track applications, manage listings, and discover top talent.</p>
                </div>
             )}
           </div>

@@ -519,7 +519,7 @@
 }
 
 .recruiterProfileCard:hover {
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-md);
 }
 
 .recruiterProfileCard .profileCover {
@@ -603,7 +603,7 @@
 
 .miniStatCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-lg);
   border-color: #10b981;
 }
 

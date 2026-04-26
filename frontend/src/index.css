@@ -42,30 +42,47 @@
   --secondary: #6366F1;
   --accent: #F43F5E;
   
-  --bg-body: #f0fdf4; /* Very light green */
-  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #dcfce7 100%);
+  --bg-body: #475569;
+  /* Geometric Teal Angle Background */
+  --bg-gradient: linear-gradient(160deg, #d1f9e1 0%, #d1f9e1 20%, #85e8c5 20%, #85e8c5 40%, #10b981 40%, #10b981 60%, #0d9488 60%, #0d9488 80%, #475569 80%, #475569 100%);
+  
+  /* Alternative smoother version if they prefer angles: */
+  --bg-gradient: 
+    linear-gradient(217deg, rgba(209, 249, 225, .8), rgba(209, 249, 225, 0) 70.71%),
+    linear-gradient(127deg, rgba(133, 232, 197, .8), rgba(133, 232, 197, 0) 70.71%),
+    linear-gradient(336deg, rgba(16, 185, 129, .8), rgba(16, 185, 129, 0) 70.71%),
+    #475569;
+
+  /* Let's go with a cleaner angled design as per image */
+  --bg-gradient: 
+    linear-gradient(150deg, #D1F9E1 15%, transparent 15.2%),
+    linear-gradient(155deg, #85E8C5 35%, transparent 35.2%),
+    linear-gradient(160deg, #10B981 55%, transparent 55.2%),
+    linear-gradient(165deg, #0D9488 75%, transparent 75.2%),
+    #475569;
+
   --bg-card: rgba(255, 255, 255, 0.7);
-  --bg-sidebar: linear-gradient(180deg, #1f2937 0%, #064e3b 100%);
+  --bg-sidebar: linear-gradient(180deg, #1e293b 0%, #064e3b 100%);
   
-  --text-main: #1f2937;
-  --text-light: #4b5563;
-  --text-muted: #9ca3af;
-  --heading: #064e3b;
+  --text-main: #1e293b;
+  --text-light: #475569;
+  --text-muted: #94a3b8;
+  --heading: #0f172a;
   
-  --border: rgba(255, 255, 255, 0.4);
+  --border: rgba(255, 255, 255, 0.6);
   --border-light: rgba(0, 0, 0, 0.05);
   
   --radius-sm: 8px;
-  --radius: 16px;
-  --radius-lg: 24px;
+  --radius: 18px;
+  --radius-lg: 32px;
   --radius-pill: 100px;
   
-  /* Soft Layered Shadows */
-  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 10px rgba(0, 0, 0, 0.02);
-  --shadow-lg: 0 20px 50px rgba(16, 185, 129, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
-  --shadow-soft: 8px 8px 16px rgba(0, 0, 0, 0.04), -8px -8px 16px rgba(255, 255, 255, 0.8);
-  --shadow-focus: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  /* Balanced Layered Shadows */
+  --shadow-sm: 0 3px 10px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 22px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 16px 48px rgba(16, 185, 129, 0.1);
+  --shadow-soft: 6px 6px 14px rgba(0, 0, 0, 0.03);
+  --shadow-focus: 0 0 0 4px rgba(16, 185, 129, 0.12);
   
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
