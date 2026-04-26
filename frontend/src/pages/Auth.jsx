@@ -190,7 +190,7 @@ const Auth = ({ mode: initialMode = 'login' }) => {
           <input
             type="email"
             name="email"
-            placeholder="om@example.com"
+            placeholder="name@example.com"
             value={formData.email}
             onChange={handleInputChange}
             required
@@ -244,7 +244,7 @@ const Auth = ({ mode: initialMode = 'login' }) => {
             <input
               type="text"
               name="name"
-              placeholder="Om Gupta"
+              placeholder="Enter Name"
               value={formData.name}
               onChange={handleInputChange}
               required
@@ -258,7 +258,7 @@ const Auth = ({ mode: initialMode = 'login' }) => {
             <input
               type="email"
               name="email"
-              placeholder="om@example.com"
+              placeholder="name@example.com"
               value={formData.email}
               onChange={handleInputChange}
               required
