@@ -125,7 +125,28 @@ const deleteJob = async (req, res) => {
 // GET /api/jobs/my/posted — get jobs posted by the logged-in recruiter
 const getMyJobs = async (req, res) => {
   try {
-    const jobs = await Job.find({ postedBy: req.user._id }).sort({ createdAt: -1 });
+    const jobs = await Job.aggregate([
+      { $match: { postedBy: req.user._id } },
+      { $sort: { createdAt: -1 } },
+      {
+        $lookup: {
+          from: 'applications',
+          localField: '_id',
+          foreignField: 'job',
+          as: 'applicants'
+        }
+      },
+      {
+        $addFields: {
+          applicantsCount: { $size: '$applicants' }
+        }
+      },
+      {
+        $project: {
+          applicants: 0 // remove the array of application objects to save bandwidth
+        }
+      }
+    ]);
     res.json({ jobs });
   } catch (error) {
     console.error('Get my jobs error:', error.message);

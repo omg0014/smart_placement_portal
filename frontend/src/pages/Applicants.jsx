@@ -51,12 +51,10 @@ const Applicants = () => {
 
   return (
     <div className={styles.applicationsPage}>
-      <span
-        style={{ cursor: 'pointer', color: 'var(--color-text-muted)', fontSize: '0.88rem' }}
-        onClick={() => navigate('/dashboard')}
-      >
-        ← Back to Dashboard
-      </span>
+      <button className={styles.backBtn} onClick={() => navigate('/dashboard')}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to Dashboard
+      </button>
 
       <div className="page-header">
         <h1>Applicants for "{jobTitle}"</h1>
@@ -69,85 +67,115 @@ const Applicants = () => {
           <p>Check back later for new applications</p>
         </div>
       ) : (
-        <div className={styles.appList}>
+        <div className={styles.applicantList}>
           {applicants.map((app) => (
-            <div key={app._id} className={styles.applicantCard}>
-              <div className={styles.applicantInfo}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <div>
+            <div key={app._id} className={styles.premiumApplicantCard}>
+              {/* Card Top Section: Avatar + Name + Basic Info */}
+              <div className={styles.cardTop}>
+                <div className={styles.applicantMain}>
+                  <div className={styles.applicantAvatar}>
+                    {app.applicant?.name?.split(' ').map(n => n[0]).join('') || '?'}
+                  </div>
+                  <div className={styles.applicantTitle}>
                     <h4>{app.applicant?.name || 'Unknown'}</h4>
                     <p>{app.applicant?.email}</p>
-                    {app.applicant?.phone && <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '4px' }}>📞 {app.applicant.phone}</p>}
-                    {app.applicant?.address?.city && <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '2px' }}>📍 {app.applicant.address.city}, {app.applicant.address.state}</p>}
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    {app.applicant?.experienceLevel && <p style={{ fontSize: '0.85rem' }}><strong>Exp:</strong> {app.applicant.experienceLevel}</p>}
-                    {app.applicant?.education?.degree && <p style={{ fontSize: '0.85rem', marginTop: '4px' }}><strong>Edu:</strong> {app.applicant.education.degree}</p>}
                   </div>
                 </div>
-                
+                <div className={styles.statusSection}>
+                  <span className={`badge badge-${app.status}`}>{app.status}</span>
+                </div>
+              </div>
+
+              {/* Card Content: Grid of info */}
+              <div className={styles.cardContent}>
+                <div className={styles.applicantDetailsGrid}>
+                  {app.applicant?.phone && (
+                    <div className={styles.detailItem}>
+                      <span className={styles.detailLabel}>Phone</span>
+                      <span className={styles.detailValue}>📞 {app.applicant.phone}</span>
+                    </div>
+                  )}
+                  {app.applicant?.address?.city && (
+                    <div className={styles.detailItem}>
+                      <span className={styles.detailLabel}>Location</span>
+                      <span className={styles.detailValue}>📍 {app.applicant.address.city}, {app.applicant.address.state}</span>
+                    </div>
+                  )}
+                  {app.applicant?.experienceLevel && (
+                    <div className={styles.detailItem}>
+                      <span className={styles.detailLabel}>Experience</span>
+                      <span className={styles.detailValue} style={{color: 'var(--primary)', fontWeight: '700'}}>
+                        {app.applicant.experienceLevel}
+                      </span>
+                    </div>
+                  )}
+                  {app.applicant?.education?.degree && (
+                    <div className={styles.detailItem}>
+                      <span className={styles.detailLabel}>Education</span>
+                      <span className={styles.detailValue}>{app.applicant.education.degree}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Skills Section */}
                 {app.applicant?.skills?.length > 0 && (
-                  <div style={{ marginTop: '12px' }}>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Skills:</p>
-                    <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginTop: '5px' }}>
+                  <div className={styles.skillsSection}>
+                    <span className={styles.detailLabel}>Technical Skills</span>
+                    <div className={styles.applicantSkills}>
                       {app.applicant.skills.map((skill, i) => (
-                        <span key={i} style={{ background: 'rgba(100,108,255,0.15)', color: 'var(--primary-color)', padding: '2px 10px', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(100,108,255,0.2)' }}>{skill}</span>
+                        <span key={i} className={styles.skillChip}>{skill}</span>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {app.applicant?.preferredRoles?.length > 0 && (
-                  <div style={{ marginTop: '10px' }}>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Preferred Roles:</p>
-                    <p style={{ fontSize: '0.85rem', marginTop: '2px' }}>{app.applicant.preferredRoles.join(', ')}</p>
-                  </div>
-                )}
-
+                {/* Bio Section */}
                 {app.applicant?.bio && (
-                  <div style={{ marginTop: '10px', background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', border: '1px dashed var(--border-color)' }}>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '500', marginBottom: '4px' }}>About:</p>
-                    <p style={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'var(--text-color)' }}>"{app.applicant.bio}"</p>
+                  <div className={styles.bioSection}>
+                    <span className={styles.detailLabel}>About the Candidate</span>
+                    <p>"{app.applicant.bio}"</p>
                   </div>
                 )}
-                
-                <div style={{ marginTop: '15px', display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+              </div>
+
+              {/* Card Footer: Links + Status Update */}
+              <div className={styles.cardFooter}>
+                <div className={styles.footerLinks}>
                   {app.applicant?.resume && (
                     <a
                       href={app.applicant.resume.startsWith('http') ? app.applicant.resume : `${API_BASE_URL}/uploads/resumes/${app.applicant.resume}`}
                       target="_blank"
                       rel="noreferrer"
-                      className={styles.resumeLink}
+                      className={styles.actionLink}
                     >
                       📄 Resume
                     </a>
                   )}
                   {app.applicant?.linkedin && (
-                    <a href={app.applicant.linkedin} target="_blank" rel="noreferrer" className={styles.resumeLink}>
+                    <a href={app.applicant.linkedin} target="_blank" rel="noreferrer" className={styles.actionLink}>
                       🔗 LinkedIn
                     </a>
                   )}
                   {app.applicant?.portfolio && (
-                    <a href={app.applicant.portfolio} target="_blank" rel="noreferrer" className={styles.resumeLink}>
+                    <a href={app.applicant.portfolio} target="_blank" rel="noreferrer" className={styles.actionLink}>
                       🌐 Portfolio
                     </a>
                   )}
                 </div>
-              </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '1rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
-                <span className={`badge badge-${app.status}`}>{app.status}</span>
-                <select
-                  className={styles.statusSelect}
-                  value={app.status}
-                  onChange={(e) => handleStatusChange(app._id, e.target.value)}
-                >
-                  <option value="pending">Pending</option>
-                  <option value="reviewed">Reviewed</option>
-                  <option value="shortlisted">Shortlisted</option>
-                  <option value="accepted">Accepted</option>
-                  <option value="rejected">Rejected</option>
-                </select>
+                <div className={styles.statusUpdate}>
+                  <select
+                    className={styles.modernSelect}
+                    value={app.status}
+                    onChange={(e) => handleStatusChange(app._id, e.target.value)}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="reviewed">Reviewed</option>
+                    <option value="shortlisted">Shortlisted</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
               </div>
             </div>
           ))}
