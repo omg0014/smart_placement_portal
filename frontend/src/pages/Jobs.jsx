@@ -73,7 +73,7 @@ const Jobs = () => {
         </div>
       ) : (
         <>
-          <p className={styles.resultCount}>{jobs.length} job(s) found</p>
+          <p className={styles.resultCount}>{jobs.length} jobs found</p>
           <div className={styles.jobsGrid}>
             {jobs.map((job) => (
               <JobCard key={job._id} job={job} />

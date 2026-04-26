@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import styles from './Dashboard.module.css';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5002/api';
+
 const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -200,7 +202,7 @@ const Dashboard = () => {
                   <div className={styles.resumeSection}>
                     <div className={styles.sectionIcon}>📄</div>
                     <div className={styles.resumeContent}>
-                      <h3>My Resume</h3>
+                      <h3 className={styles.premiumTitle}>Professional Resume</h3>
                       <div className={styles.resumeUpload}>
                         <label className={styles.customFileUpload}>
                           <input
@@ -208,45 +210,67 @@ const Dashboard = () => {
                             accept=".pdf,.doc,.docx"
                             onChange={(e) => setResumeFile(e.target.files[0])}
                           />
-                          <span>{resumeFile ? resumeFile.name : 'Choose file...'}</span>
+                          <span>{resumeFile ? resumeFile.name : 'Choose new file...'}</span>
                         </label>
-                        <button className="btn btn-primary btn-small" onClick={handleResumeUpload} disabled={!resumeFile}>
+                        <button className={styles.uploadResumeBtn} onClick={handleResumeUpload} disabled={!resumeFile}>
                           Upload
                         </button>
+                        
+                        {resumeName && (
+                          <a 
+                            href={resumeName.startsWith('http') ? resumeName : `${API_BASE_URL}/uploads/resumes/${resumeName}`}
+                            target="_blank" 
+                            rel="noreferrer"
+                            className={styles.viewResumeActionBtn}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            View Resume
+                          </a>
+                        )}
                       </div>
-                      {resumeName && (
-                        <p className={styles.currentResume}>✓ Current: {resumeName}</p>
-                      )}
+                      
                       {uploadMsg && (
-                        <p className={styles.currentResume}>{uploadMsg}</p>
+                        <p className={styles.uploadStatusMsg}>{uploadMsg}</p>
                       )}
                     </div>
                   </div>
 
                   {/* Stats Row */}
                   <div className={styles.statsRow}>
-                    <div className={`${styles.statCard} ${styles.statApplied}`}>
+                    <div 
+                      className={`${styles.statCard} ${styles.statApplied} ${styles.clickableStat}`}
+                      onClick={() => navigate('/applications')}
+                    >
                       <div className={styles.statIcon}>📝</div>
                       <div className={styles.statInfo}>
                         <div className={styles.statNumber}>{applications.length}</div>
                         <div className={styles.statLabel}>Total Applied</div>
                       </div>
                     </div>
-                    <div className={`${styles.statCard} ${styles.statPending}`}>
+                    <div 
+                      className={`${styles.statCard} ${styles.statPending} ${styles.clickableStat}`}
+                      onClick={() => navigate('/applications')}
+                    >
                       <div className={styles.statIcon}>⏳</div>
                       <div className={styles.statInfo}>
                         <div className={styles.statNumber}>{pendingCount}</div>
                         <div className={styles.statLabel}>Pending</div>
                       </div>
                     </div>
-                    <div className={`${styles.statCard} ${styles.statReviewed}`}>
+                    <div 
+                      className={`${styles.statCard} ${styles.statReviewed} ${styles.clickableStat}`}
+                      onClick={() => navigate('/applications')}
+                    >
                       <div className={styles.statIcon}>👀</div>
                       <div className={styles.statInfo}>
                         <div className={styles.statNumber}>{reviewedCount}</div>
                         <div className={styles.statLabel}>Reviewed</div>
                       </div>
                     </div>
-                    <div className={`${styles.statCard} ${styles.statAccepted}`}>
+                    <div 
+                      className={`${styles.statCard} ${styles.statAccepted} ${styles.clickableStat}`}
+                      onClick={() => navigate('/applications')}
+                    >
                       <div className={styles.statIcon}>🎉</div>
                       <div className={styles.statInfo}>
                         <div className={styles.statNumber}>{acceptedCount}</div>
@@ -292,7 +316,7 @@ const Dashboard = () => {
 
                   <div className={styles.profileSectionsGrid}>
                     {/* Section 1: Personal Information */}
-                    <div className={styles.profileSectionCard}>
+                    <div className={`${styles.profileSectionCard} ${styles.shadeLavender} ${styles.hoverableProfileCard}`}>
                       <div className={styles.sectionHeader}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                         <h4>Personal Information</h4>
@@ -316,7 +340,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Section 2: Career Overview */}
-                    <div className={styles.profileSectionCard}>
+                    <div className={`${styles.profileSectionCard} ${styles.shadeMint} ${styles.hoverableProfileCard}`}>
                       <div className={styles.sectionHeader}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                         <h4>Career Overview</h4>
@@ -336,7 +360,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Section 3: Education */}
-                    <div className={styles.profileSectionCard}>
+                    <div className={`${styles.profileSectionCard} ${styles.shadePink} ${styles.hoverableProfileCard}`}>
                       <div className={styles.sectionHeader}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                         <h4>Education</h4>
@@ -358,7 +382,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Section 4: Skills & Bio */}
-                    <div className={styles.profileSectionCard}>
+                    <div className={`${styles.profileSectionCard} ${styles.shadeIndigo} ${styles.hoverableProfileCard}`}>
                       <div className={styles.sectionHeader}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 14 4-4 4 4-4 4z"/><path d="M3.34 7a10 10 0 1 1 17.32 0"/></svg>
                         <h4>Skills & Expertise</h4>
@@ -377,7 +401,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Section 5: Professional Links */}
-                    <div className={`${styles.profileSectionCard} ${styles.profileItemFull}`}>
+                    <div className={`${styles.profileSectionCard} ${styles.profileItemFull} ${styles.shadePeach} ${styles.hoverableProfileCard}`}>
                       <div className={styles.sectionHeader}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                         <h4>Professional Links</h4>
